@@ -2,6 +2,13 @@
 
 class ICT_Klar_Model_Api
 {
+    const ORDERS_STATUS_PATH = '/orders/status';
+    const ORDERS_VALIDATE_PATH = '/orders/validate';
+    const ORDERS_JSON_PATH = '/orders/json';
+    const ORDER_STATUS_VALID = 'VALID';
+    const ORDER_STATUS_INVALID = 'INVALID';
+    const STATUS_OK = 201;
+    const STATUS_BAD_REQUEST = 400;
     const BATCH_SIZE = 5;
 
     private $requestData;
@@ -91,7 +98,9 @@ class ICT_Klar_Model_Api
             return $this->handleError($orderIds);
         }
 
-        $this->logger->info(__('Failed to validate orders "#%1".', $orderIds));
+        $this->getHelper()->log(
+            $this->getHelper()->__('Failed to validate orders "#%1".', $orderIds)
+        );
 
         return false;
     }
@@ -170,7 +179,99 @@ class ICT_Klar_Model_Api
         return [
             'Expect' => '',
             'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer ' . $this->getApiToken(),
+            'Authorization' => 'Bearer ' . $this->getConfig()->getApiToken(),
         ];
+    }
+
+    /**
+     * Get request endpoint URL.
+     *
+     * @param string $path
+     * @param bool $includeVersion
+     *
+     * @return string
+     */
+    private function getRequestUrl(string $path, bool $includeVersion = false)
+    {
+        if ($includeVersion) {
+            $baseUrl = $this->getConfig()->getApiUrl();
+            $version = $this->getConfig()->getApiVersion();
+
+            return rtrim($baseUrl, "/") . '/' . $version . $path;
+        }
+
+        return $this->getConfig()->getApiUrl() . $path;
+    }
+
+    /**
+     * Handle success.
+     *
+     * @param string $orderIds
+     *
+     * @return bool
+     */
+    private function handleSuccess(string $orderIds)
+    {
+        $body = $this->getCurlBody();
+
+        if (isset($body['status']) && $body['status'] === self::ORDER_STATUS_VALID) {
+            $this->getHelper()->log(
+                $this->getHelper()->__('Orders "#%1" is valid and can be sent to Klar.', $orderIds)
+            );
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get curl request response body.
+     *
+     * @return array
+     */
+    private function getCurlBody()
+    {
+        $result = json_decode(
+            $this->getCurlClient()->getBody(),
+            true,
+            512
+        );
+        
+        if ($result === null && json_last_error() !== JSON_ERROR_NONE) {
+            $this->getHelper()->log(
+                $this->getHelper()->__('Error getting body from request response: %1', json_last_error_msg())
+            );
+
+            return [];
+        }
+        
+        return $result;
+    }
+
+    /**
+     * Handle error.
+     *
+     * @param string $orderIds
+     *
+     * @return bool
+     */
+    private function handleError(string $orderIds)
+    {
+        $body = $this->getCurlBody();
+
+        if (isset($body['status'], $body['errors']) && $body['status'] === self::ORDER_STATUS_INVALID) {
+            foreach ($body['errors'] as $errorMessage) {
+                $this->getHelper()->log($errorMessage);
+            }
+
+            $this->getHelper()->log(
+                $this->getHelper()->__('Failed to validate orders "#%1":', $orderIds)
+            );
+
+            return false;
+        }
+
+        return false;
     }
 }
