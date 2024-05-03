@@ -1,6 +1,10 @@
 <?php
+/**
+ * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
+ * @copyright  Copyright (c) 2024 (https://codeapp.pl)
+ */
 
-abstract class ICT_Klar_Model_Abstracatpirequestparamsbuilder
+abstract class CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
 {
     /**
      * Convert snake case to camel case.

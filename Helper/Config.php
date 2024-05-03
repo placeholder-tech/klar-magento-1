@@ -1,6 +1,10 @@
 <?php
+/**
+ * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
+ * @copyright  Copyright (c) 2024 (https://codeapp.pl)
+ */
 
-class ICT_Klar_Helper_Config extends Mage_Core_Helper_Data
+class CodeApp_Klar_Helper_Config extends Mage_Core_Helper_Data
 {
     const XML_PATH_ORDER_STATES = 'global/sales/order/states';
     const CONFIG_PATH_ENABLED = 'klar/integration/enabled';

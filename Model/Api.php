@@ -1,6 +1,10 @@
 <?php
+/**
+ * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
+ * @copyright  Copyright (c) 2024 (https://codeapp.pl)
+ */
 
-class ICT_Klar_Model_Api
+class CodeApp_Klar_Model_Api
 {
     const ORDERS_STATUS_PATH = '/orders/status';
     const ORDERS_VALIDATE_PATH = '/orders/validate';
@@ -52,7 +56,7 @@ class ICT_Klar_Model_Api
 
             if (count($orders) !== count($orderIds)) {
                 Mage::throwException(
-                    Mage::helper('ict_klar')->__(
+                    Mage::helper('codeapp_klar')->__(
                         'Could not find orders with ids: `%ids`',
                         [
                             'ids' => implode(', ', array_diff(array_keys($orders), $orderIds))
@@ -127,28 +131,28 @@ class ICT_Klar_Model_Api
     }
 
     /**
-     * @return ICT_Klar_Model_Api_Requestparamsbuilder
+     * @return CodeApp_Klar_Model_Api_Requestparamsbuilder
      */
     private function getParamsBuilder()
     {
-        return Mage::getModel('ict_klar/api_requesparamsbuilder');
+        return Mage::getModel('codeapp_klar/api_requesparamsbuilder');
     }
 
     /**
-     * @return ICT_Klar_Helper_Config
+     * @return CodeApp_Klar_Helper_Config
      */
     private function getConfig()
     {
-        return Mage::helper('ict_klar/config');
+        return Mage::helper('codeapp_klar/config');
     }
 
     /**
-     * @return ICT_Klar_Helper_Data
+     * @return CodeApp_Klar_Helper_Data
      */
     private function getHelper()
     {
         if (!$this->helper) {
-            $this->helper = Mage::helper('ict_klar');
+            $this->helper = Mage::helper('codeapp_klar');
         }
         
         return $this->helper;
@@ -157,12 +161,12 @@ class ICT_Klar_Model_Api
     /**
      * Get CURL client.
      *
-     * @return ICT_Klar_Model_Api_Client
+     * @return CodeApp_Klar_Model_Api_Client
      */
     private function getCurlClient()
     {
         if (!$this->curlClient) {
-            $this->curlClient = Mage::getModel('ict_klar/api_client');
+            $this->curlClient = Mage::getModel('codeapp_klar/api_client');
             $this->curlClient->setHeaders($this->getHeaders());
         }
 

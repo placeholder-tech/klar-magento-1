@@ -1,20 +1,26 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
+ * @copyright  Copyright (c) 2024 (https://codeapp.pl)
+ */
+-->
 <config>
     <modules>
-        <ICT_Klar>
+        <CodeApp_Klar>
             <version>1.0.0</version>
-        </ICT_Klar>
+        </CodeApp_Klar>
     </modules>
     <global>
         <helpers>
-            <ict_klar>
-                <class>ICT_Klar_Helper</class>
-            </ict_klar>
+            <codeapp_klar>
+                <class>CodeApp_Klar_Helper</class>
+            </codeapp_klar>
         </helpers>
         <models>
-            <ict_klar>
-                <class>ICT_Klar_Model</class>
-            </ict_klar>
+            <codeapp_klar>
+                <class>CodeApp_Klar_Model</class>
+            </codeapp_klar>
         </models>
     </global>
     <adminhtml>
@@ -26,7 +32,7 @@
 							<children>
 								<config>
 									<children>
-										<klar translate="title" module="ict_klar">
+										<klar translate="title" module="codeapp_klar">
 											<title>Klar</title>
 											<sort_order>1500</sort_order>
 										</klar>

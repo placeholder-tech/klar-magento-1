@@ -1,6 +1,10 @@
 <?php
+/**
+ * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
+ * @copyright  Copyright (c) 2024 (https://codeapp.pl)
+ */
 
-class ICT_Klar_Model_Builder_Refundedlineitemsbuilder extends ICT_Klar_Model_Abstracatpirequestparamsbuilder
+class CodeApp_Klar_Model_Builder_Refundedlineitemsbuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
 {
     private RefundedLineItemInterfaceFactory $refundedLineItemFactory;
 

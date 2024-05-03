@@ -1,6 +1,10 @@
 <?php
+/**
+ * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
+ * @copyright  Copyright (c) 2024 (https://codeapp.pl)
+ */
 
-class ICT_Klar_Model_Builder_Lineitemdiscountbuilder extends ICT_Klar_Model_Abstracatpirequestparamsbuilder
+class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
 {
     private DiscountInterfaceFactory $discountFactory;
     private RuleRepositoryInterface $salesRuleRepository;

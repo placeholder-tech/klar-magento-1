@@ -1,6 +1,10 @@
 <?php
+/**
+ * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
+ * @copyright  Copyright (c) 2024 (https://codeapp.pl)
+ */
 
-class ICT_Klar_Model_Builder_Taxesbuilder extends ICT_Klar_Model_Abstracatpirequestparamsbuilder
+class CodeApp_Klar_Model_Builder_Taxesbuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
 {
     public const TAXABLE_ITEM_TYPE_PRODUCT = 'product';
     public const TAXABLE_ITEM_TYPE_SHIPPING = 'shipping';

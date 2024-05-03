@@ -1,6 +1,10 @@
 <?php
+/**
+ * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
+ * @copyright  Copyright (c) 2024 (https://codeapp.pl)
+ */
 
-class ICT_Klar_Model_Builder_Optionalidentifiersbuilder extends ICT_Klar_Model_Abstracatpirequestparamsbuilder
+class CodeApp_Klar_Model_Builder_Optionalidentifiersbuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
 {
     private OptionalIdentifiersInterfaceFactory $optionalIdentifiersFactory;
 

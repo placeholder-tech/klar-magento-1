@@ -1,7 +1,23 @@
 <?php
+/**
+ * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
+ * @copyright  Copyright (c) 2024 (https://codeapp.pl)
+ */
 
-class ICT_Klar_Model_Api_Requestparamsbuilder extends ICT_Klar_Model_Abstracatpirequestparamsbuilder
+class CodeApp_Klar_Model_Api_Requestparamsbuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
 {
+    const EMPTY_VALUE = '-';
+    const FINANCIAL_STATUS_PENDING = 'pending';
+    const FINANCIAL_STATUS_PAID = 'paid';
+    const FINANCIAL_STATUS_PARTIALLY_PAID = 'partially_paid';
+    const FINANCIAL_STATUS_REFUNDED = 'refunded';
+    const FINANCIAL_STATUS_PARTIALLY_REFUNDED = 'partially_refunded';
+    const SHIPMENT_STATUS_NOT_SHIPPED = 'not_shipped';
+    const SHIPMENT_STATUS_SHIPPED = 'shipped';
+    const SHIPMENT_STATUS_PARTIALLY_SHIPPED = 'partially_shipped';
+    const SHIPMENT_CREATED_AT_FIELD = 'created_at';
+    const SHIPMENT_TOTAL_QTY_FIELD = 'total_qty';
+
     /**
      * Build params array from sales order.
      *
@@ -11,8 +27,8 @@ class ICT_Klar_Model_Api_Requestparamsbuilder extends ICT_Klar_Model_Abstracatpi
      */
     public function buildFromSalesOrder(Mage_Sales_Model_Order $salesOrder)
     {
-        /* @var OrderInterface $order */
-        $order = $this->orderFactory->create();
+        /* @var CodeApp_Klar_Model_Data_Order $order */
+        $order = Mage::getModel('codeapp_klar/data_order');
         $processedAt = $this->getProcessedAt($salesOrder);
 
         $order->setId($salesOrder->getId());
@@ -29,16 +45,37 @@ class ICT_Klar_Model_Api_Requestparamsbuilder extends ICT_Klar_Model_Abstracatpi
         $order->setFinancialStatus($this->getFinancialStatus($salesOrder));
         $order->setShipmentStatus($this->getShipmentStatus($salesOrder));
         $order->setPaymentGatewayName($salesOrder->getPayment()->getMethod());
-        $order->setPaymentMethodName(
-            $salesOrder->getPayment()->getAdditionalInformation('method_title') ?? self::EMPTY_VALUE
-        );
+        
+        if ($salesOrder->getPayment()->getAdditionalInformation('method_title')) {
+            $order->setPaymentMethodName(
+                $salesOrder->getPayment()->getAdditionalInformation('method_title')
+            );
+        } else {
+            $order->setPaymentMethodName(self::EMPTY_VALUE);
+        }
+        
         $order->setOrderName($this->getOrderName($salesOrder));
         $order->setOrderNumber($salesOrder->getIncrementId());
-        $order->setLineItems($this->lineItemsBuilder->buildFromSalesOrder($salesOrder));
-        $order->setRefundedLineItems($this->refundedLineItemsBuilder->buildFromSalesOrder($salesOrder));
-        $order->setShipping($this->shippingBuilder->buildFromSalesOrder($salesOrder));
-        $order->setCustomer($this->customerBuilder->buildFromSalesOrder($salesOrder));
-        $order->setOptionalIdentifiers($this->optionalIdentifiersBuilder->buildFromSalesOrder($salesOrder));
+        
+        $order->setLineItems(
+            Mage::getSingleton('codeapp_klar/builder_lineitemsbuilder')->buildFromSalesOrder($salesOrder)
+        );
+        
+        $order->setRefundedLineItems(
+            Mage::getSingleton('codeapp_klar/builder_refundedlineitemsbuilder')->buildFromSalesOrder($salesOrder)
+        );
+        
+        $order->setShipping(
+            Mage::getSingleton('codeapp_klar/builder_shippingbuilder')->buildFromSalesOrder($salesOrder)
+        );
+        
+        $order->setCustomer(
+            Mage::getSingleton('codeapp_klar/builder_customerbuilder')->buildFromSalesOrder($salesOrder)
+        );
+        
+        $order->setOptionalIdentifiers(
+            Mage::getSingleton('codeapp_klar/builder_optionalidentifiersbuilder')->buildFromSalesOrder($salesOrder)
+        );
 
         return $this->snakeToCamel($order->toArray());
     }
@@ -46,18 +83,18 @@ class ICT_Klar_Model_Api_Requestparamsbuilder extends ICT_Klar_Model_Abstracatpi
     /**
      * Get sales order processed at timestamp.
      *
-     * @param SalesOrderInterface $salesOrder
+     * @param Mage_Sales_Model_Order $salesOrder
      *
      * @return false|int
      */
-    private function getProcessedAt(SalesOrderInterface $salesOrder)
+    private function getProcessedAt(Mage_Sales_Model_Order $salesOrder)
     {
         $processedAt = false;
 
         if ($salesOrder->hasShipments()) {
             /* @var ShipmentModel $firstShipment */
             $firstShipment = $salesOrder->getShipmentsCollection()
-                ->addFieldToSelect(ShipmentInterface::CREATED_AT)
+                ->addFieldToSelect(self::SHIPMENT_CREATED_AT_FIELD)
                 ->getFirstItem();
 
             if ($firstShipment->getId()) {
@@ -71,16 +108,16 @@ class ICT_Klar_Model_Api_Requestparamsbuilder extends ICT_Klar_Model_Abstracatpi
     /**
      * Get sales order closed at timestamp.
      *
-     * @param SalesOrderInterface $salesOrder
+     * @param Mage_Sales_Model_Order $salesOrder
      *
      * @return int
      */
-    private function getClosedAt(SalesOrderInterface $salesOrder): int
+    private function getClosedAt(Mage_Sales_Model_Order $salesOrder)
     {
         $closedAt = 0;
 
         foreach ($salesOrder->getAllStatusHistory() as $orderComment) {
-            if ($orderComment->getStatus() === SalesOrderModel::STATE_CLOSED) {
+            if ($orderComment->getStatus() === Mage_Sales_Model_Order::STATE_CLOSED) {
                 $closedAt = $this->getTimestamp($orderComment->getCreatedAt());
             }
         }
@@ -91,15 +128,15 @@ class ICT_Klar_Model_Api_Requestparamsbuilder extends ICT_Klar_Model_Abstracatpi
     /**
      * Get sales order cancelled at.
      *
-     * @param SalesOrderInterface $salesOrder
+     * @param Mage_Sales_Model_Order $salesOrder
      *
      * @return int
      */
-    private function getCancelledAt(SalesOrderInterface $salesOrder): int
+    private function getCancelledAt(Mage_Sales_Model_Order $salesOrder)
     {
         $cancelledAt = 0;
 
-        if ($salesOrder->getStatus() === SalesOrderModel::STATE_CANCELED) {
+        if ($salesOrder->getStatus() === Mage_Sales_Model_Order::STATE_CANCELED) {
             $cancelledAt = $this->getTimestamp($salesOrder->getUpdatedAt());
         }
 
@@ -109,11 +146,11 @@ class ICT_Klar_Model_Api_Requestparamsbuilder extends ICT_Klar_Model_Abstracatpi
     /**
      * Get sales order financial status.
      *
-     * @param SalesOrderInterface $salesOrder
+     * @param Mage_Sales_Model_Order $salesOrder
      *
      * @return string
      */
-    private function getFinancialStatus(SalesOrderInterface $salesOrder): string
+    private function getFinancialStatus(Mage_Sales_Model_Order $salesOrder)
     {
         $financialStatus = self::FINANCIAL_STATUS_PENDING;
         $totalPaid = (float)$salesOrder->getTotalPaid();
@@ -142,11 +179,11 @@ class ICT_Klar_Model_Api_Requestparamsbuilder extends ICT_Klar_Model_Abstracatpi
     /**
      * Get sales order shipment status.
      *
-     * @param SalesOrderInterface $salesOrder
+     * @param Mage_Sales_Model_Order $salesOrder
      *
      * @return string
      */
-    private function getShipmentStatus(SalesOrderInterface $salesOrder): string
+    private function getShipmentStatus(Mage_Sales_Model_Order $salesOrder)
     {
         $shipmentStatus = self::SHIPMENT_STATUS_NOT_SHIPPED;
 
@@ -155,10 +192,10 @@ class ICT_Klar_Model_Api_Requestparamsbuilder extends ICT_Klar_Model_Abstracatpi
             $qtyShipped = 0;
 
             $shipments = $salesOrder->getShipmentsCollection()
-                ->addFieldToSelect(ShipmentInterface::TOTAL_QTY)
+                ->addFieldToSelect(self::SHIPMENT_TOTAL_QTY_FIELD)
                 ->getItems();
 
-            /* @var ShipmentModel $shipment */
+            /* @var Mage_Sales_Model_Order_Shipment $shipment */
             foreach ($shipments as $shipment) {
                 if ($shipment->getId()) {
                     $qtyShipped += (float)$shipment->getTotalQty();
@@ -178,17 +215,17 @@ class ICT_Klar_Model_Api_Requestparamsbuilder extends ICT_Klar_Model_Abstracatpi
     /**
      * Get order name.
      *
-     * @param SalesOrderInterface $salesOrder
+     * @param Mage_Sales_Model_Order $salesOrder
      *
      * @return string
      */
-    private function getOrderName(SalesOrderInterface $salesOrder): string
+    private function getOrderName(Mage_Sales_Model_Order $salesOrder)
     {
         $orderName = self::EMPTY_VALUE;
         try {
-            $storeName = $this->storeManager->getStore($salesOrder->getStoreId())->getName();
+            $storeName = Mage::app()->getStore($salesOrder->getStoreId())->getName();
             $orderName = $storeName . ' - Order #' . $salesOrder->getIncrementId();
-        } catch (NoSuchEntityException $e) {
+        } catch (Mage_Core_Exception $e) {
             return $orderName;
         }
 
@@ -198,10 +235,10 @@ class ICT_Klar_Model_Api_Requestparamsbuilder extends ICT_Klar_Model_Abstracatpi
     /**
      * Get optional identifiers.
      *
-     * @return OptionalIdentifiersInterface
+     * @return CodeApp_Klar_Model_Data_Optionalidentifiers
      */
-    private function getOptionalIdentifiers(): OptionalIdentifiersInterface
+    private function getOptionalIdentifiers()
     {
-        return $this->optionalIdentifiersFactory->create();
+        return Mage::getModel('codeapp_klar/data_optionalidentifiers');
     }
 }

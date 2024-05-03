@@ -1,6 +1,10 @@
 <?php
+/**
+ * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
+ * @copyright  Copyright (c) 2024 (https://codeapp.pl)
+ */
 
-class ICT_Klar_Model_Builder_Shippingbuilder extends ICT_Klar_Model_Abstracatpirequestparamsbuilder
+class CodeApp_Klar_Model_Builder_Shippingbuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
 {
     private ShippingInterfaceFactory $shippingFactory;
     private DiscountInterfaceFactory $discountFactory;

@@ -1,4 +1,10 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
+ * @copyright  Copyright (c) 2024 (https://codeapp.pl)
+ */
+-->
 <config>
     <acl>
         <resources>

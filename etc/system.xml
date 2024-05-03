@@ -1,15 +1,21 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
+ * @copyright  Copyright (c) 2024 (https://codeapp.pl)
+ */
+-->
 <config>
     <tabs>
-        <ict translate="label" module="ict_klar">
-            <label>ICT</label>
+        <codeapp translate="label" module="codeapp_klar">
+            <label>CodeApp</label>
             <sort_order>1500</sort_order>
-        </ict>
+        </codeapp>
     </tabs>
     <sections>
-        <klar translate="label" module="ict_klar">
+        <klar translate="label" module="codeapp_klar">
             <label>Klar</label>
-            <tab>ict</tab>
+            <tab>codeapp</tab>
             <sort_order>10</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
