@@ -6,41 +6,17 @@
 
 class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
 {
-    private DiscountInterfaceFactory $discountFactory;
-    private RuleRepositoryInterface $salesRuleRepository;
-    private RuleFactory $ruleFactory;
-
-    /**
-     * LineItemDiscountsBuilder constructor.
-     *
-     * @param DateTimeFactory $dateTimeFactory
-     * @param DiscountInterfaceFactory $discountFactory
-     * @param RuleRepositoryInterface $salesRuleRepository
-     * @param RuleFactory $ruleFactory
-     */
-    public function __construct(
-        DateTimeFactory $dateTimeFactory,
-        DiscountInterfaceFactory $discountFactory,
-        RuleRepositoryInterface $salesRuleRepository,
-        RuleFactory $ruleFactory
-    ) {
-        parent::__construct($dateTimeFactory);
-        $this->discountFactory = $discountFactory;
-        $this->salesRuleRepository = $salesRuleRepository;
-        $this->ruleFactory = $ruleFactory;
-    }
-
     /**
      * Build line item discounts array from sales order item.
      *
-     * @param SalesOrderItemInterface $salesOrderItem
+     * @param Mage_Sales_Model_Order_Item $salesOrderItem
      *
      * @return array
      */
-    public function buildFromSalesOrderItem(SalesOrderItemInterface $salesOrderItem): array
+    public function buildFromSalesOrderItem(Mage_Sales_Model_Order_Item $salesOrderItem)
     {
         $discounts = [];
-        $discountAmount = (float)$salesOrderItem->getDiscountAmount();
+        $discountAmount = (float)$salesOrderItem->getDiscountAmount(); // TODO implement discount service
         $discountLeft = $discountAmount;
 
         if ($discountAmount && $salesOrderItem->getAppliedRuleIds()) {
@@ -88,11 +64,12 @@ class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Mo
      *
      * @return array
      */
-    private function buildRuleDiscount(int $ruleId, float $baseItemPrice): array
+    private function buildRuleDiscount(int $ruleId, float $baseItemPrice)
     {
         try {
-            $salesRule = $this->salesRuleRepository->getById($ruleId);
-        } catch (NoSuchEntityException|LocalizedException $e) {
+            /** @var Mage_SalesRule_Model_Rule $salesRule */
+            $salesRule = Mage::getModel('salesrule/rule')->load($ruleId);
+        } catch (Mage_Core_Exception $e) {
             // Rule doesn't exist, manual calculation is not possible.
             return [];
         }
@@ -101,23 +78,23 @@ class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Mo
             return [];
         }
 
-        /* @var DiscountInterface $discount */
-        $discount = $this->discountFactory->create();
+        /* @var CodeApp_Klar_Model_Data_Discount $discount */
+        $discount = Mage::getModel('codeapp_klar/data_discount');
 
         $discount->setTitle($salesRule->getName());
         $discount->setDescriptor($salesRule->getDescription());
 
-        if ($salesRule->getCouponType() === RuleInterface::COUPON_TYPE_SPECIFIC_COUPON) {
+        if ($salesRule->getCouponType() === Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC) {
             $couponCode = $this->ruleFactory->create()->load($ruleId)->getCouponCode();
 
             $discount->setIsVoucher(true);
             $discount->setVoucherCode($couponCode);
         }
 
-        if ($salesRule->getSimpleAction() === RuleInterface::DISCOUNT_ACTION_BY_PERCENT) {
+        if ($salesRule->getSimpleAction() === Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION) {
             $discountPercent = $salesRule->getDiscountAmount() / 100;
             $discount->setDiscountAmount($baseItemPrice * $discountPercent);
-        } elseif ($salesRule->getSimpleAction() === RuleInterface::DISCOUNT_ACTION_FIXED_AMOUNT) {
+        } elseif ($salesRule->getSimpleAction() === Mage_SalesRule_Model_Rule::BY_FIXED_ACTION) {
             $discount->setDiscountAmount((float)$salesRule->getDiscountAmount());
         } else {
             return []; // Disallow other action types
@@ -133,13 +110,13 @@ class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Mo
      *
      * @return array
      */
-    private function buildOtherDiscount(float $discountLeft): array
+    private function buildOtherDiscount(float $discountLeft)
     {
-        /* @var DiscountInterface $discount */
-        $discount = $this->discountFactory->create();
+        /* @var CodeApp_Klar_Model_Data_Discount $discount */
+        $discount = Mage::getModel('codeapp_klar/data_discount');
 
-        $discount->setTitle(DiscountInterface::OTHER_DISCOUNT_TITLE);
-        $discount->setDescriptor(DiscountInterface::OTHER_DISCOUNT_DESCRIPTOR);
+        $discount->setTitle(CodeApp_Klar_Model_Data_Discount::OTHER_DISCOUNT_TITLE);
+        $discount->setDescriptor(CodeApp_Klar_Model_Data_Discount::OTHER_DISCOUNT_DESCRIPTOR);
         $discount->setDiscountAmount($discountLeft);
 
         return $this->snakeToCamel($discount->toArray());
@@ -153,19 +130,19 @@ class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Mo
      *
      * @return array
      */
-    private function buildSpecialPriceDiscount(float $price, float $originalPrice): array
+    private function buildSpecialPriceDiscount(float $price, float $originalPrice)
     {
-        /* @var DiscountInterface $discount */
-        $discount = $this->discountFactory->create();
+        /* @var CodeApp_Klar_Model_Data_Discount $discount */
+        $discount = Mage::getModel('codeapp_klar/data_discount');
 
-        $discount->setTitle(DiscountInterface::SPECIAL_PRICE_DISCOUNT_TITLE);
-        $discount->setDescriptor(DiscountInterface::SPECIAL_PRICE_DISCOUNT_DESCRIPTOR);
+        $discount->setTitle(CodeApp_Klar_Model_Data_Discount::SPECIAL_PRICE_DISCOUNT_TITLE);
+        $discount->setDescriptor(CodeApp_Klar_Model_Data_Discount::SPECIAL_PRICE_DISCOUNT_DESCRIPTOR);
         $discount->setDiscountAmount($originalPrice - $price);
 
         return $this->snakeToCamel($discount->toArray());
     }
 
-    private function sumCalculatedDiscounts(array $discounts): float
+    private function sumCalculatedDiscounts(array $discounts)
     {
         $calculatedDiscounts = 0.00;
         foreach ($discounts as $discount) {
@@ -175,7 +152,7 @@ class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Mo
         return round($calculatedDiscounts, 2);
     }
 
-    private function rebuildDiscountsBasedOnFlatData(array $discounts, float $discountAmount): array
+    private function rebuildDiscountsBasedOnFlatData(array $discounts, float $discountAmount)
     {
         $newDiscounts = [];
         foreach ($discounts as $discount) {

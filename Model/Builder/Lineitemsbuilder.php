@@ -33,8 +33,8 @@ class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abs
                 $weightInGrams = $this->getWeightInGrams($product);
             }
 
-            /* @var LineItemInterface $lineItem */
-            $lineItem = $this->lineItemFactory->create();
+            /* @var CodeApp_Klar_Model_Data_Lineitem $lineItem */
+            $lineItem = Mage::getModel('codeapp_klar/data_lineitem');
 
             $lineItem->setId((string)$salesOrderItem->getItemId());
             $lineItem->setProductName($salesOrderItem->getName());
@@ -58,10 +58,14 @@ class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abs
             $lineItem->setProductShippingWeightInGrams($weightInGrams);
             $lineItem->setSku($salesOrderItem->getSku());
             $lineItem->setQuantity((float)$salesOrderItem->getQtyOrdered());
-            $lineItem->setDiscounts($this->discountsBuilder->buildFromSalesOrderItem($salesOrderItem));
-            $lineItem->setTaxes(
-                $this->taxesBuilder->build((int)$salesOrderItem->getOrderId(), $salesOrderItem)
+            $lineItem->setDiscounts(
+                Mage::getSingleton('codeapp_klar/builder_lineitemdiscountbuilder')->buildFromSalesOrderItem($salesOrderItem)
             );
+
+            $lineItem->setTaxes(
+                Mage::getSingleton('codeapp_klar/builder_taxesbuilder')->build((int)$salesOrderItem->getOrderId(), $salesOrderItem)
+            );
+
             $lineItem->setTotalAmountBeforeTaxesAndDiscounts($totalBeforeTaxesAndDiscounts);
 
             $totalAfterTaxesAndDiscounts = $this->calculateTotalAfterTaxesAndDiscounts($lineItem);
@@ -76,11 +80,11 @@ class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abs
     /**
      * Get product variant name and ID.
      *
-     * @param SalesOrderItemInterface $salesOrderItem
+     * @param Mage_Sales_Model_Order_Item $salesOrderItem
      *
      * @return array|false
      */
-    private function getProductVariant(SalesOrderItemInterface $salesOrderItem)
+    private function getProductVariant(Mage_Sales_Model_Order_Item $salesOrderItem)
     {
         $productOptions = $salesOrderItem->getProductOptions();
 
@@ -97,11 +101,11 @@ class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abs
     /**
      * Get the highest level category name.
      *
-     * @param SalesOrderItemInterface $salesOrderItem
+     * @param Mage_Sales_Model_Order_Item $salesOrderItem
      *
      * @return string|null
      */
-    private function getCategoryName(SalesOrderItemInterface $salesOrderItem): ?string
+    private function getCategoryName(Mage_Sales_Model_Order_Item $salesOrderItem)
     {
         $product = $salesOrderItem->getProduct();
 
@@ -114,8 +118,8 @@ class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abs
 
         foreach ($categoryIds as $categoryId) {
             try {
-                $category = $this->categoryRepository->get($categoryId);
-            } catch (NoSuchEntityException $e) {
+                $category = Mage::getModel('catalog/category')->load($categoryId);
+            } catch (Mage_Core_Exception $e) {
                 continue;
             }
 
@@ -136,21 +140,22 @@ class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abs
     /**
      * Get product weight in grams.
      *
-     * @param Product $product
+     * @param Mage_Catalog_Model_Product $product
      *
      * @return float
      */
-    private function getWeightInGrams(Product $product): float
+    private function getWeightInGrams(Mage_Catalog_Model_Product $product)
     {
         $productWeightInKgs = 0.00;
-        $weightUnit = $this->config->getWeightUnit();
+        //$weightUnit = Mage::helper('codeapp_klar/config')->getWeightUnit();
         $productWeight = (float)$product->getWeight();
 
         if ($productWeight) {
+            // TODO clean this up since M1 does not have weight unit we assume the weight is in kg
             // Convert LBS to KGS if unit is LBS
-            if ($weightUnit === Config::WEIGHT_UNIT_LBS) {
-                $productWeightInKgs = $this->convertLbsToKgs($productWeight);
-            }
+            //if ($weightUnit === Config::WEIGHT_UNIT_LBS) {
+            //    $productWeightInKgs = $this->convertLbsToKgs($productWeight);
+            //}
 
             return $productWeightInKgs * 1000;
         }
@@ -159,28 +164,13 @@ class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abs
     }
 
     /**
-     * Convert lbs to kgs.
-     *
-     * @param float $weightLbs
-     *
-     * @return float
-     */
-    private function convertLbsToKgs(float $weightLbs): float
-    {
-        $conversionFactor = 0.45359237;
-        $weightInKgs = $weightLbs * $conversionFactor;
-
-        return round($weightInKgs, 3);
-    }
-
-    /**
      * Calculate line item total after taxes and discounts.
      *
-     * @param LineItemInterface $lineItem
+     * @param CodeApp_Klar_Model_Data_Lineitem $lineItem
      *
      * @return float
      */
-    private function calculateTotalAfterTaxesAndDiscounts(LineItemInterface $lineItem): float
+    private function calculateTotalAfterTaxesAndDiscounts(CodeApp_Klar_Model_Data_Lineitem $lineItem)
     {
         $taxAmount = 0;
         $discountAmount = 0;

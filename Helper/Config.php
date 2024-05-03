@@ -11,6 +11,9 @@ class CodeApp_Klar_Helper_Config extends Mage_Core_Helper_Data
     const CONFIG_PATH_API_URL = 'klar/integration/api_url';
     const CONFIG_PATH_API_VERSION = 'klar/integration/api_version';
     const CONFIG_PATH_API_TOKEN = 'klar/integration/api_token';
+    
+    const CONFIG_PATH_SEND_EMAIL = 'klar/integration/send_email';
+    const CONFIG_PATH_PUBLIC_KEY = 'klar/integration/public_key';
 
     private $enabled;
     private $apiUrl;

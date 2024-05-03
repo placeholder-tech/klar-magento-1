@@ -7,11 +7,33 @@
 class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
 {
     /**
+     * String constants for property names
+     */
+    const ID = 'id';
+    const PRODUCT_NAME = 'product_name';
+    const PRODUCT_ID = 'product_id';
+    const PRODUCT_VARIANT_NAME = 'product_variant_name';
+    const PRODUCT_VARIANT_ID = 'product_variant_id';
+    const PRODUCT_BRAND = 'product_brand';
+    const PRODUCT_COLLECTION = 'product_collection';
+    const PRODUCT_COGS = 'product_cogs';
+    const PRODUCT_GMV = 'product_gmv';
+    const PRODUCT_SHIPPING_WEIGHT_IN_GRAMS = 'product_shipping_weight_in_grams';
+    const SKU = 'sku';
+    const QUANTITY = 'quantity';
+    const PRODUCT_TAGS = 'product_tags';
+    const TOTAL_AMOUNT_BEFORE_TAXES_AND_DISCOUNTS = 'total_amount_before_taxes_and_discounts';
+    const TOTAL_AMOUNT_AFTER_TAXES_AND_DISCOUNTS = 'total_amount_after_taxes_and_discounts';
+    const TOTAL_LOGISTICS_COSTS = 'total_logistics_costs';
+    const DISCOUNTS = 'discounts';
+    const TAXES = 'taxes';
+
+    /**
      * Getter for Id.
      *
      * @return string|null
      */
-    public function getId(): ?string
+    public function getId()
     {
         return $this->getData(self::ID);
     }
@@ -23,9 +45,9 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setId(?string $id): void
+    public function setId($value)
     {
-        $this->setData(self::ID, $id);
+        $this->setData(self::ID, $value);
     }
 
     /**
@@ -33,7 +55,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return string|null
      */
-    public function getProductName(): ?string
+    public function getProductName()
     {
         return $this->getData(self::PRODUCT_NAME);
     }
@@ -45,7 +67,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductName(?string $productName): void
+    public function setProductName(string $productName)
     {
         $this->setData(self::PRODUCT_NAME, $productName);
     }
@@ -55,7 +77,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return string|null
      */
-    public function getProductId(): ?string
+    public function getProductId()
     {
         return $this->getData(self::PRODUCT_ID);
     }
@@ -67,7 +89,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductId(?string $productId): void
+    public function setProductId(string $productId)
     {
         $this->setData(self::PRODUCT_ID, $productId);
     }
@@ -77,7 +99,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return string|null
      */
-    public function getProductVariantName(): ?string
+    public function getProductVariantName()
     {
         return $this->getData(self::PRODUCT_VARIANT_NAME);
     }
@@ -89,7 +111,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductVariantName(?string $productVariantName): void
+    public function setProductVariantName(string $productVariantName)
     {
         $this->setData(self::PRODUCT_VARIANT_NAME, $productVariantName);
     }
@@ -99,7 +121,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return string|null
      */
-    public function getProductVariantId(): ?string
+    public function getProductVariantId()
     {
         return $this->getData(self::PRODUCT_VARIANT_ID);
     }
@@ -111,7 +133,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductVariantId(?string $productVariantId): void
+    public function setProductVariantId(string $productVariantId)
     {
         $this->setData(self::PRODUCT_VARIANT_ID, $productVariantId);
     }
@@ -121,7 +143,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return string|null
      */
-    public function getProductBrand(): ?string
+    public function getProductBrand()
     {
         return $this->getData(self::PRODUCT_BRAND);
     }
@@ -133,7 +155,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductBrand(?string $productBrand): void
+    public function setProductBrand(string $productBrand)
     {
         $this->setData(self::PRODUCT_BRAND, $productBrand);
     }
@@ -143,7 +165,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return string|null
      */
-    public function getProductCollection(): ?string
+    public function getProductCollection()
     {
         return $this->getData(self::PRODUCT_COLLECTION);
     }
@@ -155,7 +177,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductCollection(?string $productCollection): void
+    public function setProductCollection(string $productCollection)
     {
         $this->setData(self::PRODUCT_COLLECTION, $productCollection);
     }
@@ -165,7 +187,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return float|null
      */
-    public function getProductCogs(): ?float
+    public function getProductCogs()
     {
         return $this->getData(self::PRODUCT_COGS) === null ? null
             : (float)$this->getData(self::PRODUCT_COGS);
@@ -178,7 +200,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductCogs(?float $productCogs): void
+    public function setProductCogs(float $productCogs)
     {
         $this->setData(self::PRODUCT_COGS, $productCogs);
     }
@@ -188,7 +210,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return float|null
      */
-    public function getProductGmv(): ?float
+    public function getProductGmv()
     {
         return $this->getData(self::PRODUCT_GMV) === null ? null
             : (float)$this->getData(self::PRODUCT_GMV);
@@ -201,7 +223,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductGmv(?float $productGmv): void
+    public function setProductGmv(float $productGmv)
     {
         $this->setData(self::PRODUCT_GMV, $productGmv);
     }
@@ -211,7 +233,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return float|null
      */
-    public function getProductShippingWeightInGrams(): ?float
+    public function getProductShippingWeightInGrams()
     {
         return $this->getData(self::PRODUCT_SHIPPING_WEIGHT_IN_GRAMS) === null ? null
             : (float)$this->getData(self::PRODUCT_SHIPPING_WEIGHT_IN_GRAMS);
@@ -224,7 +246,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductShippingWeightInGrams(?float $productShippingWeightInGrams): void
+    public function setProductShippingWeightInGrams(float $productShippingWeightInGrams)
     {
         $this->setData(self::PRODUCT_SHIPPING_WEIGHT_IN_GRAMS, $productShippingWeightInGrams);
     }
@@ -234,7 +256,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return string|null
      */
-    public function getSku(): ?string
+    public function getSku()
     {
         return $this->getData(self::SKU);
     }
@@ -246,7 +268,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setSku(?string $sku): void
+    public function setSku(string $sku)
     {
         $this->setData(self::SKU, $sku);
     }
@@ -256,7 +278,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return float|null
      */
-    public function getQuantity(): ?float
+    public function getQuantity()
     {
         return $this->getData(self::QUANTITY) === null ? null
             : (float)$this->getData(self::QUANTITY);
@@ -269,7 +291,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setQuantity(?float $quantity): void
+    public function setQuantity(float $quantity)
     {
         $this->setData(self::QUANTITY, $quantity);
     }
@@ -279,7 +301,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return string|null
      */
-    public function getProductTags(): ?string
+    public function getProductTags()
     {
         return $this->getData(self::PRODUCT_TAGS);
     }
@@ -291,7 +313,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductTags(?string $productTags): void
+    public function setProductTags(string $productTags)
     {
         $this->setData(self::PRODUCT_TAGS, $productTags);
     }
@@ -301,7 +323,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return float|null
      */
-    public function getTotalAmountBeforeTaxesAndDiscounts(): ?float
+    public function getTotalAmountBeforeTaxesAndDiscounts()
     {
         return $this->getData(self::TOTAL_AMOUNT_BEFORE_TAXES_AND_DISCOUNTS) === null ? null
             : (float)$this->getData(self::TOTAL_AMOUNT_BEFORE_TAXES_AND_DISCOUNTS);
@@ -314,7 +336,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setTotalAmountBeforeTaxesAndDiscounts(?float $totalAmountBeforeTaxesAndDiscounts): void
+    public function setTotalAmountBeforeTaxesAndDiscounts(float $totalAmountBeforeTaxesAndDiscounts)
     {
         $this->setData(self::TOTAL_AMOUNT_BEFORE_TAXES_AND_DISCOUNTS, $totalAmountBeforeTaxesAndDiscounts);
     }
@@ -324,7 +346,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return float|null
      */
-    public function getTotalAmountAfterTaxesAndDiscounts(): ?float
+    public function getTotalAmountAfterTaxesAndDiscounts()
     {
         return $this->getData(self::TOTAL_AMOUNT_AFTER_TAXES_AND_DISCOUNTS) === null ? null
             : (float)$this->getData(self::TOTAL_AMOUNT_AFTER_TAXES_AND_DISCOUNTS);
@@ -337,7 +359,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setTotalAmountAfterTaxesAndDiscounts(?float $totalAmountAfterTaxesAndDiscounts): void
+    public function setTotalAmountAfterTaxesAndDiscounts(float $totalAmountAfterTaxesAndDiscounts)
     {
         $this->setData(self::TOTAL_AMOUNT_AFTER_TAXES_AND_DISCOUNTS, $totalAmountAfterTaxesAndDiscounts);
     }
@@ -347,7 +369,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return float|null
      */
-    public function getTotalLogisticsCosts(): ?float
+    public function getTotalLogisticsCosts()
     {
         return $this->getData(self::TOTAL_LOGISTICS_COSTS) === null ? null
             : (float)$this->getData(self::TOTAL_LOGISTICS_COSTS);
@@ -360,7 +382,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setTotalLogisticsCosts(?float $totalLogisticsCosts): void
+    public function setTotalLogisticsCosts(float $totalLogisticsCosts)
     {
         $this->setData(self::TOTAL_LOGISTICS_COSTS, $totalLogisticsCosts);
     }
@@ -370,7 +392,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return array|null
      */
-    public function getDiscounts(): ?array
+    public function getDiscounts()
     {
         return $this->getData(self::DISCOUNTS);
     }
@@ -382,7 +404,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setDiscounts(array $discounts): void
+    public function setDiscounts(array $discounts)
     {
         $this->setData(self::DISCOUNTS, $discounts);
     }
@@ -392,7 +414,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return array|null
      */
-    public function getTaxes(): ?array
+    public function getTaxes()
     {
         return $this->getData(self::TAXES);
     }
@@ -404,7 +426,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setTaxes(array $taxes): void
+    public function setTaxes(array $taxes)
     {
         $this->setData(self::TAXES, $taxes);
     }
