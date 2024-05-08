@@ -15,10 +15,14 @@ class CodeApp_Klar_Helper_Config extends Mage_Core_Helper_Data
     const CONFIG_PATH_SEND_EMAIL = 'klar/integration/send_email';
     const CONFIG_PATH_PUBLIC_KEY = 'klar/integration/public_key';
 
+    const DEFAULT_EMAIL = 'redacted@getklar.com';
+
     private $enabled;
     private $apiUrl;
     private $apiVersion;
     private $apiToken;
+    private $sendEmail;
+    private $publicKey;
     
     /**
      * Is the extension enabled?
@@ -55,5 +59,35 @@ class CodeApp_Klar_Helper_Config extends Mage_Core_Helper_Data
             $this->apiToken = (string) Mage::getStoreConfig(self::CONFIG_PATH_API_VERSION);
         }
         return $this->apiToken;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSendEmail()
+    {
+        if (is_null($this->sendEmail)) {
+            $this->sendEmail = (bool) Mage::getStoreConfig(self::CONFIG_PATH_SEND_EMAIL);
+        }
+        return $this->sendEmail;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPublicKey()
+    {
+        if (is_null($this->publicKey)) {
+            $this->publicKey = (string) Mage::getStoreConfig(self::CONFIG_PATH_PUBLIC_KEY);
+        }
+        return $this->publicKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultEmail()
+    {
+        return self::DEFAULT_EMAIL;
     }
 }

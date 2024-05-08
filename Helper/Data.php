@@ -14,4 +14,15 @@ class CodeApp_Klar_Helper_Data extends Mage_Core_Helper_Data
     {
         Mage::log($message, $level, 'klar.log', true);
     }
+
+    /**
+     * 
+     * @param string $string
+     * 
+     * @return string
+     */
+    public function getMD5Hash($string)
+    {
+        return md5($string);
+    }
 }

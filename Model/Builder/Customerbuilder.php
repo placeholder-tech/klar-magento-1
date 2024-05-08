@@ -6,50 +6,25 @@
 
 class CodeApp_Klar_Model_Builder_Customerbuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
 {
-    private CustomerInterfaceFactory $customerFactory;
-    private EncryptorInterface $encryptor;
-
-    private Config $config;
-    /**
-     * CustomerBuilder builder.
-     *
-     * @param DateTimeFactory $dateTimeFactory
-     * @param CustomerInterfaceFactory $customerFactory
-     * @param EncryptorInterface $encryptor
-     * @param Config $config
-     *
-     */
-    public function __construct(
-        DateTimeFactory $dateTimeFactory,
-        CustomerInterfaceFactory $customerFactory,
-        EncryptorInterface $encryptor,
-        Config $config,
-    ) {
-        parent::__construct($dateTimeFactory);
-        $this->customerFactory = $customerFactory;
-        $this->encryptor = $encryptor;
-        $this->config = $config;
-    }
-
     /**
      * Build customer from sales order.
      *
-     * @param SalesOrderInterface $salesOrder
+     * @param Mage_Sales_Model_Order $salesOrder
      *
      * @return array
      */
-    public function buildFromSalesOrder(SalesOrderInterface $salesOrder): array
+    public function buildFromSalesOrder(Mage_Sales_Model_Order $salesOrder)
     {
         $customerId = $salesOrder->getCustomerId();
-        $customerEmail = $this->config->getSendEmail() ? $salesOrder->getCustomerEmail() : "redacted@getklar.com";
-        $customerEmailHash = sha1($this->config->getPublicKey() . $salesOrder->getCustomerEmail());
+        $customerEmail = $this->getConfig()->getSendEmail() ? $salesOrder->getCustomerEmail() : $this->getConfig()->getDefaultEmail();
+        $customerEmailHash = sha1($this->getConfig()->getPublicKey() . $salesOrder->getCustomerEmail());
 
         if (!$customerId) {
             $customerId = $this->generateGuestCustomerId($customerEmail);
         }
 
-        /* @var CustomerInterface $customer */
-        $customer = $this->customerFactory->create();
+        /* @var CodeApp_Klar_Model_Data_Customer $customer */
+        $customer = Mage::getModel('codeapp_klar/data_customer');
 
         $customer->setId((string)$customerId);
         $customer->setEmail($customerEmail);
@@ -65,8 +40,16 @@ class CodeApp_Klar_Model_Builder_Customerbuilder extends CodeApp_Klar_Model_Abst
      *
      * @return string
      */
-    private function generateGuestCustomerId(string $customerEmail): string
+    private function generateGuestCustomerId(string $customerEmail)
     {
-        return $this->encryptor->hash($customerEmail, Encryptor::HASH_VERSION_MD5);
+        return Mage::helper('codeapp_klar')->getMD5Hash($customerEmail);
+    }
+
+    /**
+     * @return CodeApp_Klar_Helper_Config
+     */
+    private function getConfig()
+    {
+        return Mage::helper('codeapp_klar/config');
     }
 }

@@ -6,32 +6,17 @@
 
 class CodeApp_Klar_Model_Builder_Optionalidentifiersbuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
 {
-    private OptionalIdentifiersInterfaceFactory $optionalIdentifiersFactory;
-
-    /**
-     * OptionalIdentifiersBuilder builder.
-     *
-     * @param DateTimeFactory $dateTimeFactory
-     * @param OptionalIdentifiersInterfaceFactory $optionalIdentifiersFactorybin
-     */
-    public function __construct(
-        DateTimeFactory $dateTimeFactory,
-        OptionalIdentifiersInterfaceFactory $optionalIdentifiersFactory,
-    ) {
-        parent::__construct($dateTimeFactory);
-        $this->optionalIdentifiersFactory = $optionalIdentifiersFactory;
-    }
-
     /**
      * Build OptionalIdentifiers from sales order.
      *
-     * @param SalesOrderInterface $salesOrder
+     * @param Mage_Sales_Model_Order $salesOrder
      *
      * @return array
      */
-    public function buildFromSalesOrder(SalesOrderInterface $salesOrder): array
+    public function buildFromSalesOrder(Mage_Sales_Model_Order $salesOrder)
     {
-        $optionalIdentifiers = $this->optionalIdentifiersFactory->create();
+        /** @var CodeApp_Klar_Model_Data_Optionalidentifiers $optionalIdentifiers */
+        $optionalIdentifiers = Mage::getModel('codeapp_klar/data_optionalidentifiers');
         $optionalIdentifiers->setGoogleAnalyticsTransactionId($salesOrder->getIncrementId());
 
         return $this->snakeToCamel($optionalIdentifiers->toArray());

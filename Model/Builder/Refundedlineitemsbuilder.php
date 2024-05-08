@@ -6,30 +6,14 @@
 
 class CodeApp_Klar_Model_Builder_Refundedlineitemsbuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
 {
-    private RefundedLineItemInterfaceFactory $refundedLineItemFactory;
-
-    /**
-     * RefundedLineItemsBuilder constructor.
-     *
-     * @param DateTimeFactory $dateTimeFactory
-     * @param RefundedLineItemInterfaceFactory $refundedLineItemFactory
-     */
-    public function __construct(
-        DateTimeFactory $dateTimeFactory,
-        RefundedLineItemInterfaceFactory $refundedLineItemFactory
-    ) {
-        parent::__construct($dateTimeFactory);
-        $this->refundedLineItemFactory = $refundedLineItemFactory;
-    }
-
     /**
      * Build refunded line items array from sales order.
      *
-     * @param SalesOrderInterface $salesOrder
+     * @param Mage_Sales_Model_Order $salesOrder
      *
      * @return array
      */
-    public function buildFromSalesOrder(SalesOrderInterface $salesOrder): array
+    public function buildFromSalesOrder(Mage_Sales_Model_Order $salesOrder)
     {
         $refundedLineItems = [];
 
@@ -38,8 +22,8 @@ class CodeApp_Klar_Model_Builder_Refundedlineitemsbuilder extends CodeApp_Klar_M
                 continue;
             }
 
-            /* @var RefundedLineItemInterface $refundedLineItem */
-            $refundedLineItem = $this->refundedLineItemFactory->create();
+            /* @var CodeApp_Klar_Model_Data_Refundedlineitem $refundedLineItem */
+            $refundedLineItem = Mage::getModel('codeapp_klar/data_refundedlineitem');
 
             $refundedLineItem->setId((string)$salesOrderItem->getId());
             $refundedLineItem->setLineItemId((string)$salesOrderItem->getId());

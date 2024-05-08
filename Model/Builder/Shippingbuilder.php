@@ -6,46 +6,18 @@
 
 class CodeApp_Klar_Model_Builder_Shippingbuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
 {
-    private ShippingInterfaceFactory $shippingFactory;
-    private DiscountInterfaceFactory $discountFactory;
-    private TaxesBuilder $taxesBuilder;
-    private CountryFactory $countryFactory;
-
-    /**
-     * ShippingBuilder constructor.
-     *
-     * @param DateTimeFactory $dateTimeFactory
-     * @param ShippingInterfaceFactory $shippingFactory
-     * @param DiscountInterfaceFactory $discountFactory
-     * @param TaxesBuilder $taxesBuilder
-     * @param CountryFactory $countryFactory
-     */
-    public function __construct(
-        DateTimeFactory $dateTimeFactory,
-        ShippingInterfaceFactory $shippingFactory,
-        DiscountInterfaceFactory $discountFactory,
-        TaxesBuilder $taxesBuilder,
-        CountryFactory $countryFactory
-    ) {
-        parent::__construct($dateTimeFactory);
-        $this->shippingFactory = $shippingFactory;
-        $this->discountFactory = $discountFactory;
-        $this->taxesBuilder = $taxesBuilder;
-        $this->countryFactory = $countryFactory;
-    }
-
     /**
      * Build shipping from sales order.
      *
-     * @param SalesOrderInterface $salesOrder
+     * @param Mage_Sales_Model_Order $salesOrder
      *
      * @return array
      */
-    public function buildFromSalesOrder(SalesOrderInterface $salesOrder): array
+    public function buildFromSalesOrder(Mage_Sales_Model_Order $salesOrder)
     {
         $shippingAddress = $salesOrder->getShippingAddress();
-        /* @var ShippingInterface $shipping */
-        $shipping = $this->shippingFactory->create();
+        /* @var CodeApp_Klar_Model_Data_Shipping $shipping */
+        $shipping = Mage::getModel('codeapp_klar/data_shipping');
 
         if ($shippingAddress) {
           $shipping->setCity($shippingAddress->getCity());
@@ -76,27 +48,29 @@ class CodeApp_Klar_Model_Builder_Shippingbuilder extends CodeApp_Klar_Model_Abst
      *
      * @return string
      */
-    private function getCountryCodeIso3Letter(string $countryId): string
+    private function getCountryCodeIso3Letter(string $countryId)
     {
-        return $this->countryFactory->create()->loadByCode($countryId)->getData('iso3_code');
+        $country = Mage::getModel('directory/country')->loadByCode($countryId);
+        return $country->getData('iso3_code');
     }
 
     /**
      * Get shipping discounts from sales order.
      *
-     * @param SalesOrderInterface $salesOrder
+     * @param Mage_Sales_Model_Order $salesOrder
      *
      * @return array
      */
-    private function getDiscounts(SalesOrderInterface $salesOrder): array
+    private function getDiscounts(Mage_Sales_Model_Order $salesOrder)
     {
+        // TODO think if I can move getting discount logic to a separate class in order to get discounts in class like this and others
         $discountAmount = (float)$salesOrder->getShippingDiscountAmount();
 
         if ($discountAmount) {
-            /* @var DiscountInterface $discount */
-            $discount = $this->discountFactory->create();
+            /* @var CodeApp_Klar_Model_Data_Discount $discount */
+            $discount = Mage::getModel('codeapp_klar/data_discount');
 
-            $discount->setTitle(DiscountInterface::DEFAULT_DISCOUNT_TITLE);
+            $discount->setTitle(CodeApp_Klar_Model_Data_Discount::DEFAULT_DISCOUNT_TITLE);
             $discount->setDiscountAmount($discountAmount);
 
             return [$this->snakeToCamel($discount->toArray())];
@@ -112,12 +86,15 @@ class CodeApp_Klar_Model_Builder_Shippingbuilder extends CodeApp_Klar_Model_Abst
      *
      * @return array
      */
-    private function getTaxes(int $orderId): array
+    private function getTaxes(int $orderId)
     {
-        return $this->taxesBuilder->build(
+        /** @var CodeApp_Klar_Model_Builder_Taxesbuilder $taxesBuilder */
+        $taxesBuilder = Mage::getSingleton('codeapp_klar/builder_taxesbuilder');
+
+        return $taxesBuilder->build(
             $orderId,
             null,
-            TaxesBuilder::TAXABLE_ITEM_TYPE_SHIPPING
+            CodeApp_Klar_Model_Builder_Taxesbuilder::TAXABLE_ITEM_TYPE_SHIPPING
         );
     }
 }
