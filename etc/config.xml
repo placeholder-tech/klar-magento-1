@@ -20,8 +20,38 @@
         <models>
             <codeapp_klar>
                 <class>CodeApp_Klar_Model</class>
+				<resourceModel>codeapp_klar_resource</resourceModel>
             </codeapp_klar>
+			<codeapp_klar_resource>
+				<class>CodeApp_Klar_Model_Resource</class>
+				<entities>
+					<klarorder>
+						<table>klar_orders</table>
+					</klarorder>
+				</entities>
+			</codeapp_klar_resource>
         </models>
+		<resources>
+            <codeapp_klar_setup>
+                <setup>
+                    <module>CodeApp_Klar</module>
+					<class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </codeapp_klar_setup>
+            <codeapp_klar_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </codeapp_klar_write>
+            <codeapp_klar_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </codeapp_klar_read>
+        </resources>
     </global>
     <adminhtml>
 		<acl>
