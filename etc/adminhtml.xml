@@ -6,10 +6,41 @@
  */
 -->
 <config>
+    <menu>
+        <sales>
+            <children>
+                <codeapp_klar translate="title" module="codeapp_klar">
+                    <title>Klar</title>
+                    <sort_order>1000</sort_order>
+                    <children>
+                        <order translate="title" module="codeapp_klar">
+                            <title>Order</title>
+                            <sort_order>10</sort_order>
+                            <action>adminhtml/klar_order/index</action>
+                        </order>
+                    </children>
+                </codeapp_klar>
+            </children>
+        </sales>
+    </menu>
     <acl>
         <resources>
             <admin>
                 <children>
+                    <sales>
+                        <children>
+                            <codeapp_klar translate="title" module="codeapp_klar">
+                                <title>Klar</title>
+                                <sort_order>500</sort_order>
+                                <children>
+                                    <order translate="title" module="codeapp_klar">
+                                        <title>Order</title>
+                                        <sort_order>10</sort_order>
+                                    </order>
+                                </children>
+                            </codeapp_klar>
+                        </children>
+                    </sales>
                     <system>
                         <children>
                             <config>

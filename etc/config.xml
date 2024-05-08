@@ -53,6 +53,17 @@
             </codeapp_klar_read>
         </resources>
     </global>
+	<admin>
+         <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <codeapp_klar before="Mage_Adminhtml">CodeApp_Klar_Adminhtml</codeapp_klar>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
     <adminhtml>
 		<acl>
 			<resources>
