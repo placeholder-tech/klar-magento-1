@@ -8,6 +8,6 @@ class CodeApp_Klar_Model_Resource_KlarOrder extends Mage_Core_Model_Resource_Db_
 {
     protected function _construct()
     {
-        $this->_init('codeapp_klar/klar_orders', 'entity_id');
+        $this->_init('codeapp_klar/klarorder', 'entity_id');
     }
 }

@@ -6,6 +6,7 @@ class CodeApp_Klar_Adminhtml_Klar_OrderController extends Mage_Adminhtml_Control
     {
         $this->loadLayout();
         $this->_setActiveMenu('sales/codeapp_klar/order');
+        $this->_addContent($this->getLayout()->createBlock('codeapp_klar/adminhtml_klarorder'));
         $this->renderLayout();
 
         return $this;

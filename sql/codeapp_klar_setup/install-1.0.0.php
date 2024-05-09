@@ -28,6 +28,14 @@ $table = $installer->getConnection()
         ->addColumn('message', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
             'nullable'  => true,
         ), 'Message')
+        ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+            'nullable' => false,
+            'default'  => Varien_Db_Ddl_Table::TIMESTAMP_INIT
+        ), 'Creation Time')
+        ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+            'nullable' => false,
+            'default'  => Varien_Db_Ddl_Table::TIMESTAMP_INIT_UPDATE
+        ), 'Update Time')
         ->addForeignKey($installer->getFkName('codeapp_klar/klarorder', 'order_id', 'sales/order', 'entity_id'),
             'order_id', $installer->getTable('sales/order'), 'entity_id',
             Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)

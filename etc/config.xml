@@ -17,6 +17,11 @@
                 <class>CodeApp_Klar_Helper</class>
             </codeapp_klar>
         </helpers>
+		<blocks>
+			<codeapp_klar>
+				<class>CodeApp_Klar_Block</class>
+			</codeapp_klar>
+		</blocks>
         <models>
             <codeapp_klar>
                 <class>CodeApp_Klar_Model</class>
@@ -52,6 +57,17 @@
                 </connection>
             </codeapp_klar_read>
         </resources>
+		<events>
+            <sales_order_place_after>
+                <observers>
+                    <codeapp_klar_order_place_after_observer>
+                        <type>singleton</type>
+                        <class>codeapp_klar/observer_order</class>
+                        <method>createKlarOrder</method>
+                    </codeapp_klar_order_place_after_observer>
+                </observers>
+            </sales_order_place_after>
+        </events>
     </global>
 	<admin>
          <routers>
