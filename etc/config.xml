@@ -101,5 +101,26 @@
 				</admin>
 			</resources>
 		</acl>
-	</adminhtml>	
+	</adminhtml>
+	<crontab>
+        <jobs>
+            <codeapp_klar_order_synchronization>
+                <schedule>
+                    <cron_expr>* * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>codeapp_klar/cron_order::synchronizeOrders</model>
+                </run>
+            </codeapp_klar_order_synchronization>
+        </jobs>
+    </crontab>
+	<default>
+        <klar>
+            <integration>
+                <enabled>0</enabled>
+                <api_url>https://open-api.getklar.com/</api_url>
+				<api_version>12.2022</api_version>
+            </integration>
+        </klar>
+    </default>
 </config>

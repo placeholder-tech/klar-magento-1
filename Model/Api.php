@@ -3,7 +3,7 @@
  * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
  * @copyright  Copyright (c) 2024 (https://codeapp.pl)
  */
-
+// TODO remove all scalar type type hints - int, string, float, bool
 class CodeApp_Klar_Model_Api
 {
     const ORDERS_STATUS_PATH = '/orders/status';
@@ -42,11 +42,11 @@ class CodeApp_Klar_Model_Api
                 $result += $this->validateAndSend([$id]);
             }
         }
-
     }
 
     /**
      * @param int[] $orderIds
+     * @return Mage_Sales_Model_Order[]
      */
     private function getOrders(array $orderIds)
     {
@@ -64,7 +64,7 @@ class CodeApp_Klar_Model_Api
                     )
                 );
             }
-            return $orders;
+            return Mage::helper('codeapp_klar')->toArray($orders);
         }
 
         return null;
@@ -135,7 +135,7 @@ class CodeApp_Klar_Model_Api
      */
     private function getParamsBuilder()
     {
-        return Mage::getModel('codeapp_klar/api_requesparamsbuilder');
+        return Mage::getModel('codeapp_klar/api_requestparamsbuilder');
     }
 
     /**
@@ -195,7 +195,7 @@ class CodeApp_Klar_Model_Api
      *
      * @return string
      */
-    private function getRequestUrl(string $path, bool $includeVersion = false)
+    private function getRequestUrl($path, $includeVersion = false)
     {
         if ($includeVersion) {
             $baseUrl = $this->getConfig()->getApiUrl();
@@ -214,7 +214,7 @@ class CodeApp_Klar_Model_Api
      *
      * @return bool
      */
-    private function handleSuccess(string $orderIds)
+    private function handleSuccess($orderIds)
     {
         $body = $this->getCurlBody();
 
@@ -260,7 +260,7 @@ class CodeApp_Klar_Model_Api
      *
      * @return bool
      */
-    private function handleError(string $orderIds)
+    private function handleError($orderIds)
     {
         $body = $this->getCurlBody();
 
@@ -277,5 +277,39 @@ class CodeApp_Klar_Model_Api
         }
 
         return false;
+    }
+
+    /**
+     * Make order json request.
+     *
+     * @param Mage_Sales_Model_Order[] $salesOrders
+     *
+     * @return int
+     */
+    private function json(array $salesOrders)
+    {
+        $result = 0;
+        $orderIds = implode(', ', array_keys($salesOrders));
+        $this->getHelper()->log(
+            $this->getHelper()->__('Sending orders "#%1".', $orderIds)
+        );
+
+        $this->getCurlClient()->post(
+            $this->getRequestUrl(self::ORDERS_JSON_PATH, true),
+            $this->requestData
+        );
+
+        if ($this->getCurlClient()->getStatus() === self::STATUS_OK) {
+            $this->getHelper()->log(
+                $this->getHelper()->__('Orders "#%1" successfully sent to Klar.', $orderIds)
+            );
+            $result = count($salesOrders);
+        } else {
+            $this->getHelper()->log(
+                $this->getHelper()->__('Failed to send orders "#%1".', $orderIds)
+            );
+        }
+
+        return $result;
     }
 }

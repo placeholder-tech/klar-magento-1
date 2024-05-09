@@ -4,7 +4,7 @@
  * @copyright  Copyright (c) 2024 (https://codeapp.pl)
  */
 
-class CodeApp_Klar_Model_Api_Requestparamsbuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
+class CodeApp_Klar_Model_Api_Requestparamsbuilder extends CodeApp_Klar_Model_Abstractapirequestparamsbuilder
 {
     const EMPTY_VALUE = '-';
     const FINANCIAL_STATUS_PENDING = 'pending';

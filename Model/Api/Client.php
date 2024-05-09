@@ -120,7 +120,7 @@ class CodeApp_Klar_Model_Api_Client
      * @return int
      * @throws \Exception
      */
-    private function parseHeaders($data)
+    private function parseHeaders($curl, $data)
     {
         $data = $data !== null ? $data : '';
         if ($this->headerCount == 0) {

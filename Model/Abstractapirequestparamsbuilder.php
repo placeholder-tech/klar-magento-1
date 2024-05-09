@@ -4,7 +4,7 @@
  * @copyright  Copyright (c) 2024 (https://codeapp.pl)
  */
 
-abstract class CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
+abstract class CodeApp_Klar_Model_Abstractapirequestparamsbuilder
 {
     /**
      * Convert snake case to camel case.
@@ -32,12 +32,13 @@ abstract class CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
      *
      * @return int
      */
-    protected function getTimestamp(string $dateTime): int
+    protected function getTimestamp(string $dateTime)
     {
-        if ($dateTime === '' | !$dateTime) {
-            return $this->dateTimeFactory->create()->getTimestamp();
+        if (empty($dateTime)) {
+            return Mage::getModel('core/date')->timestamp(time());
         }
 
-        return $this->dateTimeFactory->create($dateTime)->getTimestamp();
+        $date = new DateTime($dateTime);
+        return $date->getTimestamp();
     }
 }

@@ -25,4 +25,18 @@ class CodeApp_Klar_Helper_Data extends Mage_Core_Helper_Data
     {
         return md5($string);
     }
+
+    /**
+     * @return array
+     */
+    public function toArray(Mage_Core_Model_Resource_Db_Collection_Abstract $collection)
+    {
+        $items = [];
+
+        foreach ($collection as $item) {
+            $items[$item->getId()] = $item;
+        }
+        
+        return $items;
+    }
 }
