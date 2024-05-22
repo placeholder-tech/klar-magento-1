@@ -64,7 +64,7 @@ class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Mo
      *
      * @return array
      */
-    private function buildRuleDiscount(int $ruleId, float $baseItemPrice)
+    private function buildRuleDiscount($ruleId, $baseItemPrice)
     {
         try {
             /** @var Mage_SalesRule_Model_Rule $salesRule */
@@ -110,7 +110,7 @@ class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Mo
      *
      * @return array
      */
-    private function buildOtherDiscount(float $discountLeft)
+    private function buildOtherDiscount($discountLeft)
     {
         /* @var CodeApp_Klar_Model_Data_Discount $discount */
         $discount = Mage::getModel('codeapp_klar/data_discount');
@@ -130,7 +130,7 @@ class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Mo
      *
      * @return array
      */
-    private function buildSpecialPriceDiscount(float $price, float $originalPrice)
+    private function buildSpecialPriceDiscount($price, $originalPrice)
     {
         /* @var CodeApp_Klar_Model_Data_Discount $discount */
         $discount = Mage::getModel('codeapp_klar/data_discount');
@@ -152,7 +152,7 @@ class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Mo
         return round($calculatedDiscounts, 2);
     }
 
-    private function rebuildDiscountsBasedOnFlatData(array $discounts, float $discountAmount)
+    private function rebuildDiscountsBasedOnFlatData(array $discounts, $discountAmount)
     {
         $newDiscounts = [];
         foreach ($discounts as $discount) {

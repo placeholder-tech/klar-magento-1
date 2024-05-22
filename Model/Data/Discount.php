@@ -43,7 +43,7 @@ class CodeApp_Klar_Model_Data_Discount extends Varien_Object
      *
      * @return void
      */
-    public function setTitle(string $title)
+    public function setTitle($title)
     {
         $this->setData(self::TITLE, $title);
     }
@@ -65,7 +65,7 @@ class CodeApp_Klar_Model_Data_Discount extends Varien_Object
      *
      * @return void
      */
-    public function setDescriptor(string $descriptor)
+    public function setDescriptor($descriptor)
     {
         $this->setData(self::DESCRIPTOR, $descriptor);
     }
@@ -88,7 +88,7 @@ class CodeApp_Klar_Model_Data_Discount extends Varien_Object
      *
      * @return void
      */
-    public function setIsVoucher(bool $isVoucher)
+    public function setIsVoucher($isVoucher)
     {
         $this->setData(self::IS_VOUCHER, $isVoucher);
     }
@@ -110,7 +110,7 @@ class CodeApp_Klar_Model_Data_Discount extends Varien_Object
      *
      * @return void
      */
-    public function setVoucherCode(string $voucherCode)
+    public function setVoucherCode($voucherCode)
     {
         $this->setData(self::VOUCHER_CODE, $voucherCode);
     }
@@ -132,7 +132,7 @@ class CodeApp_Klar_Model_Data_Discount extends Varien_Object
      *
      * @return void
      */
-    public function setVoucherType(string $voucherType)
+    public function setVoucherType($voucherType)
     {
         $this->setData(self::VOUCHER_TYPE, $voucherType);
     }
@@ -155,7 +155,7 @@ class CodeApp_Klar_Model_Data_Discount extends Varien_Object
      *
      * @return void
      */
-    public function setDiscountAmount(float $discountAmount)
+    public function setDiscountAmount($discountAmount)
     {
         $this->setData(self::DISCOUNT_AMOUNT, $discountAmount);
     }

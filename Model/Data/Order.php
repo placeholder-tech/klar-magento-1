@@ -70,7 +70,7 @@ class CodeApp_Klar_Model_Data_Order extends Varien_Object
      *
      * @return void
      */
-    public function setCreatedAt(int $createdAt)
+    public function setCreatedAt($createdAt)
     {
         $this->setData(self::CREATED_AT, $createdAt);
     }
@@ -93,7 +93,7 @@ class CodeApp_Klar_Model_Data_Order extends Varien_Object
      *
      * @return void
      */
-    public function setUpdatedAt(int $updatedAt)
+    public function setUpdatedAt($updatedAt)
     {
         $this->setData(self::UPDATED_AT, $updatedAt);
     }
@@ -116,7 +116,7 @@ class CodeApp_Klar_Model_Data_Order extends Varien_Object
      *
      * @return void
      */
-    public function setProcessedAt(int $processedAt)
+    public function setProcessedAt($processedAt)
     {
         $this->setData(self::PROCESSED_AT, $processedAt);
     }
@@ -139,7 +139,7 @@ class CodeApp_Klar_Model_Data_Order extends Varien_Object
      *
      * @return void
      */
-    public function setClosedAt(int $closedAt)
+    public function setClosedAt($closedAt)
     {
         $this->setData(self::CLOSED_AT, $closedAt);
     }
@@ -162,7 +162,7 @@ class CodeApp_Klar_Model_Data_Order extends Varien_Object
      *
      * @return void
      */
-    public function setCancelledAt(int $cancelledAt)
+    public function setCancelledAt($cancelledAt)
     {
         $this->setData(self::CANCELLED_AT, $cancelledAt);
     }
@@ -184,7 +184,7 @@ class CodeApp_Klar_Model_Data_Order extends Varien_Object
      *
      * @return void
      */
-    public function setCurrencyCodeIso3Letter(string $currencyCodeIso3Letter)
+    public function setCurrencyCodeIso3Letter($currencyCodeIso3Letter)
     {
         $this->setData(self::CURRENCY_CODE_ISO3_LETTER, $currencyCodeIso3Letter);
     }
@@ -206,7 +206,7 @@ class CodeApp_Klar_Model_Data_Order extends Varien_Object
      *
      * @return void
      */
-    public function setFinancialStatus(string $financialStatus)
+    public function setFinancialStatus($financialStatus)
     {
         $this->setData(self::FINANCIAL_STATUS, $financialStatus);
     }
@@ -228,7 +228,7 @@ class CodeApp_Klar_Model_Data_Order extends Varien_Object
      *
      * @return void
      */
-    public function setShipmentStatus(string $shipmentStatus)
+    public function setShipmentStatus($shipmentStatus)
     {
         $this->setData(self::SHIPMENT_STATUS, $shipmentStatus);
     }
@@ -250,7 +250,7 @@ class CodeApp_Klar_Model_Data_Order extends Varien_Object
      *
      * @return void
      */
-    public function setPaymentGatewayName(string $paymentGatewayName)
+    public function setPaymentGatewayName($paymentGatewayName)
     {
         $this->setData(self::PAYMENT_GATEWAY_NAME, $paymentGatewayName);
     }
@@ -272,7 +272,7 @@ class CodeApp_Klar_Model_Data_Order extends Varien_Object
      *
      * @return void
      */
-    public function setPaymentMethodName(string $paymentMethodName)
+    public function setPaymentMethodName($paymentMethodName)
     {
         $this->setData(self::PAYMENT_METHOD_NAME, $paymentMethodName);
     }
@@ -294,7 +294,7 @@ class CodeApp_Klar_Model_Data_Order extends Varien_Object
      *
      * @return void
      */
-    public function setOrderName(string $orderName)
+    public function setOrderName($orderName)
     {
         $this->setData(self::ORDER_NAME, $orderName);
     }
@@ -316,7 +316,7 @@ class CodeApp_Klar_Model_Data_Order extends Varien_Object
      *
      * @return void
      */
-    public function setOrderNumber(string $orderNumber)
+    public function setOrderNumber($orderNumber)
     {
         $this->setData(self::ORDER_NUMBER, $orderNumber);
     }
@@ -338,7 +338,7 @@ class CodeApp_Klar_Model_Data_Order extends Varien_Object
      *
      * @return void
      */
-    public function setTags(string $tags)
+    public function setTags($tags)
     {
         $this->setData(self::TAGS, $tags);
     }
@@ -424,7 +424,7 @@ class CodeApp_Klar_Model_Data_Order extends Varien_Object
      *
      * @return void
      */
-    public function setTransactionCosts(float $transactionCosts)
+    public function setTransactionCosts($transactionCosts)
     {
         $this->setData(self::TRANSACTION_COSTS, $transactionCosts);
     }

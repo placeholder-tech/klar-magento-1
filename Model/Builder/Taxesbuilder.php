@@ -19,9 +19,9 @@ class CodeApp_Klar_Model_Builder_Taxesbuilder extends CodeApp_Klar_Model_Abstrac
      * @return array
      */
     public function build(
-        int $salesOrderId,
+        $salesOrderId,
         Mage_Sales_Model_Order_Item $salesOrderItem = null,
-        string $taxableItemType = self::TAXABLE_ITEM_TYPE_PRODUCT
+        $taxableItemType = self::TAXABLE_ITEM_TYPE_PRODUCT
     ) {
         $taxes = [];
         $taxItems = Mage::getResourceModel('tax/sales_order_tax')

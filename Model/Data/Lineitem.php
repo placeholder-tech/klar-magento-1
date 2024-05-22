@@ -67,7 +67,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductName(string $productName)
+    public function setProductName($productName)
     {
         $this->setData(self::PRODUCT_NAME, $productName);
     }
@@ -89,7 +89,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductId(string $productId)
+    public function setProductId($productId)
     {
         $this->setData(self::PRODUCT_ID, $productId);
     }
@@ -111,7 +111,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductVariantName(string $productVariantName)
+    public function setProductVariantName($productVariantName)
     {
         $this->setData(self::PRODUCT_VARIANT_NAME, $productVariantName);
     }
@@ -133,7 +133,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductVariantId(string $productVariantId)
+    public function setProductVariantId($productVariantId)
     {
         $this->setData(self::PRODUCT_VARIANT_ID, $productVariantId);
     }
@@ -155,7 +155,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductBrand(string $productBrand)
+    public function setProductBrand($productBrand)
     {
         $this->setData(self::PRODUCT_BRAND, $productBrand);
     }
@@ -177,7 +177,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductCollection(string $productCollection)
+    public function setProductCollection($productCollection)
     {
         $this->setData(self::PRODUCT_COLLECTION, $productCollection);
     }
@@ -200,7 +200,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductCogs(float $productCogs)
+    public function setProductCogs($productCogs)
     {
         $this->setData(self::PRODUCT_COGS, $productCogs);
     }
@@ -223,7 +223,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductGmv(float $productGmv)
+    public function setProductGmv($productGmv)
     {
         $this->setData(self::PRODUCT_GMV, $productGmv);
     }
@@ -246,7 +246,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductShippingWeightInGrams(float $productShippingWeightInGrams)
+    public function setProductShippingWeightInGrams($productShippingWeightInGrams)
     {
         $this->setData(self::PRODUCT_SHIPPING_WEIGHT_IN_GRAMS, $productShippingWeightInGrams);
     }
@@ -268,7 +268,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setSku(string $sku)
+    public function setSku($sku)
     {
         $this->setData(self::SKU, $sku);
     }
@@ -291,7 +291,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setQuantity(float $quantity)
+    public function setQuantity($quantity)
     {
         $this->setData(self::QUANTITY, $quantity);
     }
@@ -313,7 +313,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProductTags(string $productTags)
+    public function setProductTags($productTags)
     {
         $this->setData(self::PRODUCT_TAGS, $productTags);
     }
@@ -336,7 +336,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setTotalAmountBeforeTaxesAndDiscounts(float $totalAmountBeforeTaxesAndDiscounts)
+    public function setTotalAmountBeforeTaxesAndDiscounts($totalAmountBeforeTaxesAndDiscounts)
     {
         $this->setData(self::TOTAL_AMOUNT_BEFORE_TAXES_AND_DISCOUNTS, $totalAmountBeforeTaxesAndDiscounts);
     }
@@ -359,7 +359,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setTotalAmountAfterTaxesAndDiscounts(float $totalAmountAfterTaxesAndDiscounts)
+    public function setTotalAmountAfterTaxesAndDiscounts($totalAmountAfterTaxesAndDiscounts)
     {
         $this->setData(self::TOTAL_AMOUNT_AFTER_TAXES_AND_DISCOUNTS, $totalAmountAfterTaxesAndDiscounts);
     }
@@ -382,7 +382,7 @@ class CodeApp_Klar_Model_Data_Lineitem extends Varien_Object
      *
      * @return void
      */
-    public function setTotalLogisticsCosts(float $totalLogisticsCosts)
+    public function setTotalLogisticsCosts($totalLogisticsCosts)
     {
         $this->setData(self::TOTAL_LOGISTICS_COSTS, $totalLogisticsCosts);
     }

@@ -54,7 +54,7 @@ class CodeApp_Klar_Model_Data_Customer extends Varien_Object
      *
      * @return void
      */
-    public function setEmailHash(string $emailHash)
+    public function setEmailHash($emailHash)
     {
         $this->setData(self::EMAIL_HASH, $emailHash);
     }
@@ -76,7 +76,7 @@ class CodeApp_Klar_Model_Data_Customer extends Varien_Object
      *
      * @return void
      */
-    public function setEmail(string $email)
+    public function setEmail($email)
     {
         $this->setData(self::EMAIL, $email);
     }
@@ -122,7 +122,7 @@ class CodeApp_Klar_Model_Data_Customer extends Varien_Object
      *
      * @return void
      */
-    public function setTags(string $tags)
+    public function setTags($tags)
     {
         $this->setData(self::TAGS, $tags);
     }

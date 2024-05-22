@@ -55,7 +55,7 @@ class CodeApp_Klar_Model_Data_Refundedlineitem extends Varien_Object
      *
      * @return void
      */
-    public function setLineItemId(string $lineItemId)
+    public function setLineItemId($lineItemId)
     {
         $this->setData(self::LINE_ITEM_ID, $lineItemId);
     }
@@ -77,7 +77,7 @@ class CodeApp_Klar_Model_Data_Refundedlineitem extends Varien_Object
      *
      * @return void
      */
-    public function setReasonDescriptor(string $reasonDescriptor)
+    public function setReasonDescriptor($reasonDescriptor)
     {
         $this->setData(self::REASON_DESCRIPTOR, $reasonDescriptor);
     }
@@ -100,7 +100,7 @@ class CodeApp_Klar_Model_Data_Refundedlineitem extends Varien_Object
      *
      * @return void
      */
-    public function setRefundedQuantity(float $refundedQuantity)
+    public function setRefundedQuantity($refundedQuantity)
     {
         $this->setData(self::REFUNDED_QUANTITY, $refundedQuantity);
     }
@@ -123,7 +123,7 @@ class CodeApp_Klar_Model_Data_Refundedlineitem extends Varien_Object
      *
      * @return void
      */
-    public function setCreatedAt(int $createdAt)
+    public function setCreatedAt($createdAt)
     {
         $this->setData(self::CREATED_AT, $createdAt);
     }
@@ -146,7 +146,7 @@ class CodeApp_Klar_Model_Data_Refundedlineitem extends Varien_Object
      *
      * @return void
      */
-    public function setProcessedAt(int $processedAt)
+    public function setProcessedAt($processedAt)
     {
         $this->setData(self::PROCESSED_AT, $processedAt);
     }

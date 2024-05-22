@@ -39,7 +39,7 @@ class CodeApp_Klar_Model_Data_Optionalidentifiers extends Varien_Object
      *
      * @return void
      */
-    public function setGoogleAnalyticsTransactionId(string $googleAnalyticsTransactionId)
+    public function setGoogleAnalyticsTransactionId($googleAnalyticsTransactionId)
     {
         $this->setData(self::GOOGLE_ANALYTICS_TRANSACTION_ID, $googleAnalyticsTransactionId);
     }
@@ -61,7 +61,7 @@ class CodeApp_Klar_Model_Data_Optionalidentifiers extends Varien_Object
      *
      * @return void
      */
-    public function setOrderSourceName(string $orderSourceName)
+    public function setOrderSourceName($orderSourceName)
     {
         $this->setData(self::ORDER_SOURCE_NAME, $orderSourceName);
     }
@@ -83,7 +83,7 @@ class CodeApp_Klar_Model_Data_Optionalidentifiers extends Varien_Object
      *
      * @return void
      */
-    public function setOrderChannelName(string $orderChannelName)
+    public function setOrderChannelName($orderChannelName)
     {
         $this->setData(self::ORDER_CHANNEL_NAME, $orderChannelName);
     }
@@ -105,7 +105,7 @@ class CodeApp_Klar_Model_Data_Optionalidentifiers extends Varien_Object
      *
      * @return void
      */
-    public function setOrderPlatformName(string $orderPlatformName)
+    public function setOrderPlatformName($orderPlatformName)
     {
         $this->setData(self::ORDER_PLATFORM_NAME, $orderPlatformName);
     }
@@ -127,7 +127,7 @@ class CodeApp_Klar_Model_Data_Optionalidentifiers extends Varien_Object
      *
      * @return void
      */
-    public function setUtmSource(string $utmSource)
+    public function setUtmSource($utmSource)
     {
         $this->setData(self::UTM_SOURCE, $utmSource);
     }
@@ -149,7 +149,7 @@ class CodeApp_Klar_Model_Data_Optionalidentifiers extends Varien_Object
      *
      * @return void
      */
-    public function setUtmMedium(string $utmMedium)
+    public function setUtmMedium($utmMedium)
     {
         $this->setData(self::UTM_MEDIUM, $utmMedium);
     }
@@ -171,7 +171,7 @@ class CodeApp_Klar_Model_Data_Optionalidentifiers extends Varien_Object
      *
      * @return void
      */
-    public function setUtmCampaign(string $utmCampaign)
+    public function setUtmCampaign($utmCampaign)
     {
         $this->setData(self::UTM_CAMPAIGN, $utmCampaign);
     }
@@ -193,7 +193,7 @@ class CodeApp_Klar_Model_Data_Optionalidentifiers extends Varien_Object
      *
      * @return void
      */
-    public function setUtmTerm(string $utmTerm)
+    public function setUtmTerm($utmTerm)
     {
         $this->setData(self::UTM_TERM, $utmTerm);
     }
@@ -215,7 +215,7 @@ class CodeApp_Klar_Model_Data_Optionalidentifiers extends Varien_Object
      *
      * @return void
      */
-    public function setUtmContent(string $utmContent)
+    public function setUtmContent($utmContent)
     {
         $this->setData(self::UTM_CONTENT, $utmContent);
     }
@@ -237,7 +237,7 @@ class CodeApp_Klar_Model_Data_Optionalidentifiers extends Varien_Object
      *
      * @return void
      */
-    public function setLandingPage(string $landingPage)
+    public function setLandingPage($landingPage)
     {
         $this->setData(self::LANDING_PAGE, $landingPage);
     }
@@ -260,7 +260,7 @@ class CodeApp_Klar_Model_Data_Optionalidentifiers extends Varien_Object
      *
      * @return void
      */
-    public function setIsSubscriptionOrder(bool $isSubscriptionOrder)
+    public function setIsSubscriptionOrder($isSubscriptionOrder)
     {
         $this->setData(self::IS_SUBSCRIPTION_ORDER, $isSubscriptionOrder);
     }
@@ -283,7 +283,7 @@ class CodeApp_Klar_Model_Data_Optionalidentifiers extends Varien_Object
      *
      * @return void
      */
-    public function setIsFirstSubscriptionOrder(bool $isFirstSubscriptionOrder)
+    public function setIsFirstSubscriptionOrder($isFirstSubscriptionOrder)
     {
         $this->setData(self::IS_FIRST_SUBSCRIPTION_ORDER, $isFirstSubscriptionOrder);
     }

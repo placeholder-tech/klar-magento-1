@@ -32,7 +32,7 @@ abstract class CodeApp_Klar_Model_Abstractapirequestparamsbuilder
      *
      * @return int
      */
-    protected function getTimestamp(string $dateTime)
+    protected function getTimestamp($dateTime)
     {
         if (empty($dateTime)) {
             return Mage::getModel('core/date')->timestamp(time());

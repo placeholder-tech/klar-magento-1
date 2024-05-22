@@ -39,7 +39,7 @@ class CodeApp_Klar_Model_Data_Shipping extends Varien_Object
      *
      * @return void
      */
-    public function setCity(string $city)
+    public function setCity($city)
     {
         $this->setData(self::CITY, $city);
     }
@@ -61,7 +61,7 @@ class CodeApp_Klar_Model_Data_Shipping extends Varien_Object
      *
      * @return void
      */
-    public function setProvinceOrState(string $provinceOrState)
+    public function setProvinceOrState($provinceOrState)
     {
         $this->setData(self::PROVINCE_OR_STATE, $provinceOrState);
     }
@@ -83,7 +83,7 @@ class CodeApp_Klar_Model_Data_Shipping extends Varien_Object
      *
      * @return void
      */
-    public function setCountryCodeIso3Letter(string $countryCodeIso3Letter)
+    public function setCountryCodeIso3Letter($countryCodeIso3Letter)
     {
         $this->setData(self::COUNTRY_CODE_ISO3_LETTER, $countryCodeIso3Letter);
     }
@@ -105,7 +105,7 @@ class CodeApp_Klar_Model_Data_Shipping extends Varien_Object
      *
      * @return void
      */
-    public function setCountryCodeIso2Letter(string $countryCodeIso2Letter)
+    public function setCountryCodeIso2Letter($countryCodeIso2Letter)
     {
         $this->setData(self::COUNTRY_CODE_ISO2_LETTER, $countryCodeIso2Letter);
     }
@@ -127,7 +127,7 @@ class CodeApp_Klar_Model_Data_Shipping extends Varien_Object
      *
      * @return void
      */
-    public function setCurrencyCodeIso3Letter(string $currencyCodeIso3Letter)
+    public function setCurrencyCodeIso3Letter($currencyCodeIso3Letter)
     {
         $this->setData(self::CURRENCY_CODE_ISO3_LETTER, $currencyCodeIso3Letter);
     }
@@ -149,7 +149,7 @@ class CodeApp_Klar_Model_Data_Shipping extends Varien_Object
      *
      * @return void
      */
-    public function setZipOrPostalCode(string $zipOrPostalCode)
+    public function setZipOrPostalCode($zipOrPostalCode)
     {
         $this->setData(self::ZIP_OR_POSTAL_CODE, $zipOrPostalCode);
     }
@@ -171,7 +171,7 @@ class CodeApp_Klar_Model_Data_Shipping extends Varien_Object
      *
      * @return void
      */
-    public function setProviderDescriptor(string $providerDescriptor)
+    public function setProviderDescriptor($providerDescriptor)
     {
         $this->setData(self::PROVIDER_DESCRIPTOR, $providerDescriptor);
     }
@@ -194,7 +194,7 @@ class CodeApp_Klar_Model_Data_Shipping extends Varien_Object
      *
      * @return void
      */
-    public function setShippingTotalAmountBeforeTaxAndDiscounts(float $shippingTotalAmountBeforeTaxAndDiscounts)
+    public function setShippingTotalAmountBeforeTaxAndDiscounts($shippingTotalAmountBeforeTaxAndDiscounts)
     {
         $this->setData(self::SHIPPING_TOTAL_AMOUNT_BEFORE_TAX_AND_DISCOUNTS, $shippingTotalAmountBeforeTaxAndDiscounts);
     }
@@ -217,7 +217,7 @@ class CodeApp_Klar_Model_Data_Shipping extends Varien_Object
      *
      * @return void
      */
-    public function setShippingTotalAmountAfterTaxAndDiscounts(float $shippingTotalAmountAfterTaxAndDiscounts)
+    public function setShippingTotalAmountAfterTaxAndDiscounts($shippingTotalAmountAfterTaxAndDiscounts)
     {
         $this->setData(self::SHIPPING_TOTAL_AMOUNT_AFTER_TAX_AND_DISCOUNTS, $shippingTotalAmountAfterTaxAndDiscounts);
     }
@@ -240,7 +240,7 @@ class CodeApp_Klar_Model_Data_Shipping extends Varien_Object
      *
      * @return void
      */
-    public function setTotalLogisticsCosts(float $totalLogisticsCosts)
+    public function setTotalLogisticsCosts($totalLogisticsCosts)
     {
         $this->setData(self::TOTAL_LOGISTICS_COSTS, $totalLogisticsCosts);
     }

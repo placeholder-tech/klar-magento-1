@@ -40,7 +40,7 @@ class CodeApp_Klar_Model_Builder_Customerbuilder extends CodeApp_Klar_Model_Abst
      *
      * @return string
      */
-    private function generateGuestCustomerId(string $customerEmail)
+    private function generateGuestCustomerId($customerEmail)
     {
         return Mage::helper('codeapp_klar')->getMD5Hash($customerEmail);
     }

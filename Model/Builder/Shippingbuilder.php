@@ -48,7 +48,7 @@ class CodeApp_Klar_Model_Builder_Shippingbuilder extends CodeApp_Klar_Model_Abst
      *
      * @return string
      */
-    private function getCountryCodeIso3Letter(string $countryId)
+    private function getCountryCodeIso3Letter($countryId)
     {
         $country = Mage::getModel('directory/country')->loadByCode($countryId);
         return $country->getData('iso3_code');
@@ -86,7 +86,7 @@ class CodeApp_Klar_Model_Builder_Shippingbuilder extends CodeApp_Klar_Model_Abst
      *
      * @return array
      */
-    private function getTaxes(int $orderId)
+    private function getTaxes($orderId)
     {
         /** @var CodeApp_Klar_Model_Builder_Taxesbuilder $taxesBuilder */
         $taxesBuilder = Mage::getSingleton('codeapp_klar/builder_taxesbuilder');

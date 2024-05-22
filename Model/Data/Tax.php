@@ -31,7 +31,7 @@ class Tax extends Varien_Object
      *
      * @return void
      */
-    public function setTitle(string $title)
+    public function setTitle($title)
     {
         $this->setData(self::TITLE, $title);
     }
@@ -53,7 +53,7 @@ class Tax extends Varien_Object
      *
      * @return void
      */
-    public function setDescriptor(string $descriptor)
+    public function setDescriptor($descriptor)
     {
         $this->setData(self::DESCRIPTOR, $descriptor);
     }
@@ -76,7 +76,7 @@ class Tax extends Varien_Object
      *
      * @return void
      */
-    public function setTaxRate(float $taxRate)
+    public function setTaxRate($taxRate)
     {
         $this->setData(self::TAX_RATE, $taxRate);
     }
@@ -99,7 +99,7 @@ class Tax extends Varien_Object
      *
      * @return void
      */
-    public function setTaxAmount(float $taxAmount)
+    public function setTaxAmount($taxAmount)
     {
         $this->setData(self::TAX_AMOUNT, $taxAmount);
     }
