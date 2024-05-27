@@ -4,7 +4,7 @@
  * @copyright  Copyright (c) 2024 (https://codeapp.pl)
  */
 
-class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
+class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abstractapirequestparamsbuilder
 {
     /**
      * Build line items array from sales order.
@@ -17,7 +17,7 @@ class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abs
     {
         $lineItems = [];
 
-        foreach ($salesOrder->getItems() as $salesOrderItem) {
+        foreach ($salesOrder->getItemsCollection() as $salesOrderItem) {
             if ($salesOrderItem->getParentItemId()) {
                 continue;
             }

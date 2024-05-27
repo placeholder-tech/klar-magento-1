@@ -4,7 +4,7 @@
  * @copyright  Copyright (c) 2024 (https://codeapp.pl)
  */
 
-class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
+class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Model_Abstractapirequestparamsbuilder
 {
     /**
      * Build line item discounts array from sales order item.

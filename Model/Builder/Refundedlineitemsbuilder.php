@@ -4,7 +4,7 @@
  * @copyright  Copyright (c) 2024 (https://codeapp.pl)
  */
 
-class CodeApp_Klar_Model_Builder_Refundedlineitemsbuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
+class CodeApp_Klar_Model_Builder_Refundedlineitemsbuilder extends CodeApp_Klar_Model_Abstractapirequestparamsbuilder
 {
     /**
      * Build refunded line items array from sales order.
@@ -17,7 +17,7 @@ class CodeApp_Klar_Model_Builder_Refundedlineitemsbuilder extends CodeApp_Klar_M
     {
         $refundedLineItems = [];
 
-        foreach ($salesOrder->getItems() as $salesOrderItem) {
+        foreach ($salesOrder->getItemsCollection() as $salesOrderItem) {
             if (!(float)$salesOrderItem->getQtyRefunded()) {
                 continue;
             }

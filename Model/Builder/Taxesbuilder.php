@@ -4,7 +4,7 @@
  * @copyright  Copyright (c) 2024 (https://codeapp.pl)
  */
 
-class CodeApp_Klar_Model_Builder_Taxesbuilder extends CodeApp_Klar_Model_Abstracatpirequestparamsbuilder
+class CodeApp_Klar_Model_Builder_Taxesbuilder extends CodeApp_Klar_Model_Abstractapirequestparamsbuilder
 {
     const TAXABLE_ITEM_TYPE_PRODUCT = 'product';
     const TAXABLE_ITEM_TYPE_SHIPPING = 'shipping';
@@ -24,9 +24,9 @@ class CodeApp_Klar_Model_Builder_Taxesbuilder extends CodeApp_Klar_Model_Abstrac
         $taxableItemType = self::TAXABLE_ITEM_TYPE_PRODUCT
     ) {
         $taxes = [];
-        $taxItems = Mage::getResourceModel('tax/sales_order_tax')
-                        ->getCollection()->addFieldToFilter('order_id', $salesOrderId); // TODO I need and order instead order_id, maybe change this to some other model / resource model
-
+        $taxItems = Mage::getModel('tax/sales_order_tax')
+                        ->getCollection()
+                        ->addFieldToFilter('order_id', $salesOrderId); // TODO I need and order instead order_id, maybe change this to some other model / resource model
         foreach ($taxItems as $taxItem) {
             $taxRate = (float)($taxItem['tax_percent'] / 100);
 
