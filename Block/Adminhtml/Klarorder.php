@@ -10,8 +10,8 @@ class CodeApp_Klar_Block_Adminhtml_Klarorder extends Mage_Adminhtml_Block_Widget
     {
         $this->_controller = 'adminhtml_klarorder';
         $this->_blockGroup = 'codeapp_klar';
-        $this->_headerText = Mage::helper('codeapp_klar')->__('Manage Klar Orders');
-        $this->_addButtonLabel = Mage::helper('codeapp_klar')->__('Add New Klar Order');
+        $this->_headerText = Mage::helper('codeapp_klar')->__('Klar Orders');
         parent::__construct();
+        $this->removeButton('add');
     }
 }

@@ -34,6 +34,7 @@ class CodeApp_Klar_Block_Adminhtml_Klarorder_Grid extends Mage_Adminhtml_Block_W
         $this->addColumn('order_id', array(
             'header'    => Mage::helper('codeapp_klar')->__('Order ID'),
             'align'     =>'left',
+            'width'     => '80px',
             'index'     => 'order_id',
         ));
 
@@ -41,6 +42,7 @@ class CodeApp_Klar_Block_Adminhtml_Klarorder_Grid extends Mage_Adminhtml_Block_W
             'header'    => Mage::helper('codeapp_klar')->__('Status'),
             'align'     => 'left',
             'index'     => 'status',
+            'width'     => '100px',
             'type'      => 'options',
             'options'   => array(
                 0 => 'Pending',

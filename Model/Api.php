@@ -80,11 +80,11 @@ class CodeApp_Klar_Model_Api
     private function validate(array $salesOrders)
     {
         $orderIds = implode(', ', array_keys($salesOrders));
-        $this->getHelper()->log($this->getHelper()->__('Validating orders "#%1".', $orderIds));
+        $this->getHelper()->log($this->getHelper()->__('Validating orders "#%s".', $orderIds));
 
         if (count($salesOrders) > self::BATCH_SIZE) {
             $this->getHelper()->log(
-                $this->getHelper()->__('Batch size must be less or equal %1, %2 provided.', self::BATCH_SIZE, count($salesOrders))
+                $this->getHelper()->__('Batch size must be less or equal %d, %d provided.', self::BATCH_SIZE, count($salesOrders))
             );
             return false;
         }
@@ -103,7 +103,7 @@ class CodeApp_Klar_Model_Api
         }
 
         $this->getHelper()->log(
-            $this->getHelper()->__('Failed to validate orders "#%1".', $orderIds)
+            $this->getHelper()->__('Failed to validate orders "#%s".', $orderIds)
         );
 
         return false;
@@ -126,7 +126,7 @@ class CodeApp_Klar_Model_Api
 
             $this->requestData = json_encode($items);
         } catch (Exception $e) {
-            $this->getHelper()->log($this->getHelper()->__('Error building params: %1', $e->getMessage()));
+            $this->getHelper()->log($this->getHelper()->__('Error building params: %s', $e->getMessage()));
         }
     }
 
@@ -220,7 +220,7 @@ class CodeApp_Klar_Model_Api
 
         if (isset($body['status']) && $body['status'] === self::ORDER_STATUS_VALID) {
             $this->getHelper()->log(
-                $this->getHelper()->__('Orders "#%1" is valid and can be sent to Klar.', $orderIds)
+                $this->getHelper()->__('Orders "#%s" is valid and can be sent to Klar.', $orderIds)
             );
 
             return true;
@@ -244,7 +244,7 @@ class CodeApp_Klar_Model_Api
         
         if ($result === null && json_last_error() !== JSON_ERROR_NONE) {
             $this->getHelper()->log(
-                $this->getHelper()->__('Error getting body from request response: %1', json_last_error_msg())
+                $this->getHelper()->__('Error getting body from request response: %s', json_last_error_msg())
             );
 
             return [];
@@ -270,7 +270,7 @@ class CodeApp_Klar_Model_Api
             }
 
             $this->getHelper()->log(
-                $this->getHelper()->__('Failed to validate orders "#%1":', $orderIds)
+                $this->getHelper()->__('Failed to validate orders "#%s":', $orderIds)
             );
 
             return false;
@@ -291,7 +291,7 @@ class CodeApp_Klar_Model_Api
         $result = 0;
         $orderIds = implode(', ', array_keys($salesOrders));
         $this->getHelper()->log(
-            $this->getHelper()->__('Sending orders "#%1".', $orderIds)
+            $this->getHelper()->__('Sending orders "#%s".', $orderIds)
         );
 
         $this->getCurlClient()->post(
@@ -301,12 +301,12 @@ class CodeApp_Klar_Model_Api
 
         if ($this->getCurlClient()->getStatus() === self::STATUS_OK) {
             $this->getHelper()->log(
-                $this->getHelper()->__('Orders "#%1" successfully sent to Klar.', $orderIds)
+                $this->getHelper()->__('Orders "#%s" successfully sent to Klar.', $orderIds)
             );
             $result = count($salesOrders);
         } else {
             $this->getHelper()->log(
-                $this->getHelper()->__('Failed to send orders "#%1".', $orderIds)
+                $this->getHelper()->__('Failed to send orders "#%s".', $orderIds)
             );
         }
 

@@ -14,10 +14,15 @@
                     <sort_order>1000</sort_order>
                     <children>
                         <order translate="title" module="codeapp_klar">
-                            <title>Order</title>
+                            <title>Orders Status</title>
                             <sort_order>10</sort_order>
                             <action>adminhtml/klar_order/index</action>
                         </order>
+                        <schedule translate="title" module="codeapp_klar">
+                            <title>Schedule Export</title>
+                            <sort_order>20</sort_order>
+                            <action>adminhtml/klar_schedule/index</action>
+                        </schedule>
                     </children>
                 </codeapp_klar>
             </children>
@@ -34,9 +39,13 @@
                                 <sort_order>500</sort_order>
                                 <children>
                                     <order translate="title" module="codeapp_klar">
-                                        <title>Order</title>
+                                        <title>Orders Status</title>
                                         <sort_order>10</sort_order>
                                     </order>
+                                    <schedule translate="title" module="codeapp_klar">
+                                        <title>Schedule Export</title>
+                                        <sort_order>20</sort_order>
+                                    </schedule>
                                 </children>
                             </codeapp_klar>
                         </children>

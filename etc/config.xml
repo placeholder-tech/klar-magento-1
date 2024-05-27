@@ -120,6 +120,8 @@
                 <enabled>0</enabled>
                 <api_url>https://open-api.getklar.com/</api_url>
 				<api_version>12.2022</api_version>
+				<api_token backend_model="adminhtml/system_config_backend_encrypted" />
+				<public_key backend_model="adminhtml/system_config_backend_encrypted" />
             </integration>
         </klar>
     </default>
