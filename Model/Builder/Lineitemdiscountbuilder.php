@@ -16,7 +16,8 @@ class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Mo
     public function buildFromSalesOrderItem(Mage_Sales_Model_Order_Item $salesOrderItem)
     {
         $discounts = [];
-        $discountAmount = (float)$salesOrderItem->getDiscountAmount(); // TODO implement discount service
+        $discountAmount = Mage::getSingleton('codeapp_klar/service_discount')
+                            ->getDiscountAmountFromOrderItem($salesOrderItem);
         $discountLeft = $discountAmount;
 
         if ($discountAmount && $salesOrderItem->getAppliedRuleIds()) {

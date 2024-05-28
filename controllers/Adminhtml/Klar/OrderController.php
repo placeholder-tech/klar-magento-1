@@ -1,4 +1,8 @@
 <?php
+/**
+ * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
+ * @copyright  Copyright (c) 2024 (https://codeapp.pl)
+ */
 
 class CodeApp_Klar_Adminhtml_Klar_OrderController extends Mage_Adminhtml_Controller_Action
 {
@@ -19,13 +23,7 @@ class CodeApp_Klar_Adminhtml_Klar_OrderController extends Mage_Adminhtml_Control
 
     public function indexAction()
     {
-        $this->_title('Klar Orders');
+        $this->_title('Orders Status');
         $this->_initAction();
-
-        // Example of adding a success notice message
-        //Mage::getSingleton('adminhtml/session')->addSuccess('{Success Message Text}');
-
-        // Example of adding an error notice message
-        //Mage::getSingleton('adminhtml/session')->addError('{Error Message Text}');
     }
 }

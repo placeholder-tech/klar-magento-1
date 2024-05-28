@@ -15,7 +15,7 @@ class CodeApp_Klar_Model_Observer_Order
             $klarOrder->setData('status', CodeApp_Klar_Model_Klarorder::STATUS_PENDING);
             $klarOrder->save();
         } catch (Exception $e) {
-            Mage::log('Error saving klar order: ' . $e->getMessage(), null, 'klarorder_errors.log'); // TODO implement log to custom file
+            Mage::helper('codeapp_klar')->log('Error saving klar order for export: ' . $e->getMessage(), Zend_Log::ERR);
         }
     }
 }

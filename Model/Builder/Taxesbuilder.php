@@ -26,7 +26,8 @@ class CodeApp_Klar_Model_Builder_Taxesbuilder extends CodeApp_Klar_Model_Abstrac
             $taxRate = (float)($taxItem['tax_percent'] / 100);
             
             $qty = $salesOrderItem->getQtyOrdered() ? $salesOrderItem->getQtyOrdered() : 1;
-            $itemPrice = (float)$salesOrderItem->getPriceInclTax() - ((float)$salesOrderItem->getDiscountAmount() / $qty); // TODO implement discount service to get discount amount
+            $itemPrice = (float)$salesOrderItem->getPriceInclTax()
+                            - (Mage::getSingleton('codeapp_klar/service_discount')->getDiscountAmountFromOrderItem($salesOrderItem) / $qty);
             $taxAmount = $itemPrice - ($itemPrice / (1+ $taxRate));
 
             /* @var CodeApp_Klar_Model_Data_Tax $tax */
@@ -63,8 +64,11 @@ class CodeApp_Klar_Model_Builder_Taxesbuilder extends CodeApp_Klar_Model_Abstrac
         /* @var CodeApp_Klar_Model_Data_Tax $tax */
         $tax = Mage::getModel('codeapp_klar/data_tax');
 
-        $tax->setTitle($taxItem->getTitle());
-        $tax->setTaxRate($taxItem->getPercent());
+        if (count($taxItems)) {
+            $tax->setTitle($taxItem->getTitle());
+            $tax->setTaxRate($taxItem->getPercent());
+        }
+        
         $tax->setTaxAmount($salesOrder->getShippingTaxAmount());
 
         return $taxes;

@@ -63,7 +63,6 @@ class CodeApp_Klar_Model_Builder_Shippingbuilder extends CodeApp_Klar_Model_Abst
      */
     private function getDiscounts(Mage_Sales_Model_Order $salesOrder)
     {
-        // TODO think if I can move getting discount logic to a separate class in order to get discounts in class like this and others
         $discountAmount = (float)$salesOrder->getShippingDiscountAmount();
 
         if ($discountAmount) {

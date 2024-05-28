@@ -159,8 +159,7 @@ class CodeApp_Klar_Model_Api_Client
      */
     public function doError($string)
     {
-        //  phpcs:ignore Magento2.Exceptions.DirectThrow
-        throw new \Exception($string); // TODO change to Mage::throwException() ?
+        Mage::throwException($string);
     }
 
     /**

@@ -3,7 +3,7 @@
  * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
  * @copyright  Copyright (c) 2024 (https://codeapp.pl)
  */
-// TODO remove all scalar type type hints - int, string, float, bool
+
 class CodeApp_Klar_Model_Api
 {
     const ORDERS_STATUS_PATH = '/orders/status';
@@ -113,8 +113,8 @@ class CodeApp_Klar_Model_Api
      * Set request data.
      *
      * @param Mage_Sales_Model_Order[] $salesOrders
-     *
-     * @return void
+     * @throws Mage_Core_Exception
+     * 
      */
     private function setRequestData(array $salesOrders)
     {
@@ -126,7 +126,9 @@ class CodeApp_Klar_Model_Api
 
             $this->requestData = json_encode($items);
         } catch (Exception $e) {
-            $this->getHelper()->log($this->getHelper()->__('Error building params: %s', $e->getMessage()));
+            $message = $this->getHelper()->__('Error building params: %s', $e->getMessage());
+            $this->getHelper()->log($message, Zend_Log::ERR);
+            Mage::throwException($message);
         }
     }
 

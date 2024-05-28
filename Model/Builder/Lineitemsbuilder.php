@@ -147,16 +147,9 @@ class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abs
     private function getWeightInGrams(Mage_Catalog_Model_Product $product)
     {
         $productWeightInKgs = 0.00;
-        //$weightUnit = Mage::helper('codeapp_klar/config')->getWeightUnit();
         $productWeight = (float)$product->getWeight();
 
         if ($productWeight) {
-            // TODO clean this up since M1 does not have weight unit we assume the weight is in kg
-            // Convert LBS to KGS if unit is LBS
-            //if ($weightUnit === Config::WEIGHT_UNIT_LBS) {
-            //    $productWeightInKgs = $this->convertLbsToKgs($productWeight);
-            //}
-
             return $productWeightInKgs * 1000;
         }
 
