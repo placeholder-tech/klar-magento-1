@@ -63,7 +63,7 @@ class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abs
             );
 
             $lineItem->setTaxes(
-                Mage::getSingleton('codeapp_klar/builder_taxesbuilder')->build((int)$salesOrderItem->getOrderId(), $salesOrderItem)
+                Mage::getSingleton('codeapp_klar/builder_taxesbuilder')->buildForOrderItem($salesOrderItem)
             );
 
             $lineItem->setTotalAmountBeforeTaxesAndDiscounts($totalBeforeTaxesAndDiscounts);

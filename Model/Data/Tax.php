@@ -4,7 +4,7 @@
  * @copyright  Copyright (c) 2024 (https://codeapp.pl)
  */
 
-class Tax extends Varien_Object
+class CodeApp_Klar_Model_Data_Tax extends Varien_Object
 {   
     /**
      * String constants for property names

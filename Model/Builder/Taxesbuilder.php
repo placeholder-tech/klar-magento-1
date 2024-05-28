@@ -10,57 +10,62 @@ class CodeApp_Klar_Model_Builder_Taxesbuilder extends CodeApp_Klar_Model_Abstrac
     const TAXABLE_ITEM_TYPE_SHIPPING = 'shipping';
 
     /**
-     * Get taxes from sales order by type.
+     * Get taxes from sales order item
      *
-     * @param int $salesOrderId
-     * @param OrderItemInterface|null $salesOrderItem
-     * @param string $taxableItemType
-     *
+     * @param Mage_Sales_Model_Order_Item $salesOrderItem
+     * 
      * @return array
      */
-    public function build(
-        $salesOrderId,
-        Mage_Sales_Model_Order_Item $salesOrderItem = null,
-        $taxableItemType = self::TAXABLE_ITEM_TYPE_PRODUCT
+    public function buildForOrderItem(
+        Mage_Sales_Model_Order_Item $salesOrderItem
     ) {
         $taxes = [];
-        $taxItems = Mage::getModel('tax/sales_order_tax')
-                        ->getCollection()
-                        ->addFieldToFilter('order_id', $salesOrderId); // TODO I need and order instead order_id, maybe change this to some other model / resource model
+        $taxItems = Mage::getResourceModel('tax/sales_order_tax_item')->getTaxItemsByItemId((int)$salesOrderItem->getId());
+
         foreach ($taxItems as $taxItem) {
             $taxRate = (float)($taxItem['tax_percent'] / 100);
+            
+            $qty = $salesOrderItem->getQtyOrdered() ? $salesOrderItem->getQtyOrdered() : 1;
+            $itemPrice = (float)$salesOrderItem->getPriceInclTax() - ((float)$salesOrderItem->getDiscountAmount() / $qty); // TODO implement discount service to get discount amount
+            $taxAmount = $itemPrice - ($itemPrice / (1+ $taxRate));
 
-            if ($taxItem['taxable_item_type'] === self::TAXABLE_ITEM_TYPE_PRODUCT &&
-                $salesOrderItem !== null) {
-                $salesOrderItemId = (int)$salesOrderItem->getId();
+            /* @var CodeApp_Klar_Model_Data_Tax $tax */
+            $tax = Mage::getModel('codeapp_klar/data_tax');
 
-                if ((int)$taxItem['item_id'] !== $salesOrderItemId) {
-                    continue;
-                }
+            $tax->setTitle($taxItem['title']);
+            $tax->setTaxRate($taxRate);
+            $tax->setTaxAmount($taxAmount);
 
-                $qty = $salesOrderItem->getQtyOrdered() ? $salesOrderItem->getQtyOrdered() : 1;
-                $itemPrice = (float)$salesOrderItem->getPriceInclTax() - ((float)$salesOrderItem->getDiscountAmount() / $qty); // TODO implement discount service to get discount amount
-                //$itemPrice = (float)$salesOrderItem->getOriginalPrice() - ((float)$salesOrderItem->getDiscountAmount() / $qty);
-                $taxAmount = $itemPrice - ($itemPrice / (1+ $taxRate));
-            } else {
-                $taxAmount = (float)$taxItem['real_amount'];
-            }
-
-            if ($taxItem['taxable_item_type'] === $taxableItemType) {
-                /* @var CodeApp_Klar_Model_Data_Tax $tax */
-                $tax = Mage::getModel('codeapp_klar/data_tax');
-
-                $tax->setTitle($taxItem['title']);
-                $tax->setTaxRate($taxRate);
-                $tax->setTaxAmount($taxAmount);
-
-                $taxes[$taxableItemType][] = $this->snakeToCamel($tax->toArray());
-            }
+            $taxes[] = $this->snakeToCamel($tax->toArray());
         }
 
-        if (!empty($taxes)) {
-            return $taxes[$taxableItemType];
+        return $taxes;
+    }
+
+    /**
+     * Get taxes for shipping
+     *
+     * @param Mage_Sales_Model_Order $salesOrder
+     * 
+     * @return array
+     */
+    public function buildForShipping(Mage_Sales_Model_Order $salesOrder)
+    {
+        $taxes = [];
+
+        $taxItems = Mage::getModel('tax/sales_order_tax')
+                        ->getCollection()
+                        ->loadByOrder($salesOrder);
+
+        foreach ($taxItems as $taxItem) {
+            
         }
+        /* @var CodeApp_Klar_Model_Data_Tax $tax */
+        $tax = Mage::getModel('codeapp_klar/data_tax');
+
+        $tax->setTitle($taxItem->getTitle());
+        $tax->setTaxRate($taxItem->getPercent());
+        $tax->setTaxAmount($salesOrder->getShippingTaxAmount());
 
         return $taxes;
     }

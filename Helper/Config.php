@@ -56,7 +56,7 @@ class CodeApp_Klar_Helper_Config extends Mage_Core_Helper_Data
     public function getApiToken()
     {
         if (is_null($this->apiToken)) {
-            $this->apiToken = (string) Mage::getStoreConfig(self::CONFIG_PATH_API_VERSION);
+            $this->apiToken = (string) Mage::getStoreConfig(self::CONFIG_PATH_API_TOKEN);
         }
         return $this->apiToken;
     }

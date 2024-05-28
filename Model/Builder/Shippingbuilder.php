@@ -35,7 +35,7 @@ class CodeApp_Klar_Model_Builder_Shippingbuilder extends CodeApp_Klar_Model_Abst
         $shipping->setProviderDescriptor($salesOrder->getShippingDescription());
         $shipping->setShippingTotalAmountBeforeTaxAndDiscounts((float)$shippingAmount);
         $shipping->setDiscounts($this->getDiscounts($salesOrder));
-        $shipping->setTaxes($this->getTaxes((int)$salesOrder->getEntityId()));
+        $shipping->setTaxes($this->getTaxes($salesOrder));
         $shipping->setShippingTotalAmountAfterTaxAndDiscounts($shippingAmountAfterTaxAndDiscount);
 
         return $this->snakeToCamel($shipping->toArray());
@@ -86,15 +86,11 @@ class CodeApp_Klar_Model_Builder_Shippingbuilder extends CodeApp_Klar_Model_Abst
      *
      * @return array
      */
-    private function getTaxes($orderId)
+    private function getTaxes(Mage_Sales_Model_Order $order)
     {
         /** @var CodeApp_Klar_Model_Builder_Taxesbuilder $taxesBuilder */
         $taxesBuilder = Mage::getSingleton('codeapp_klar/builder_taxesbuilder');
 
-        return $taxesBuilder->build(
-            $orderId,
-            null,
-            CodeApp_Klar_Model_Builder_Taxesbuilder::TAXABLE_ITEM_TYPE_SHIPPING
-        );
+        return $taxesBuilder->buildForShipping($order);
     }
 }

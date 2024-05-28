@@ -84,11 +84,12 @@ class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Mo
         $discount->setTitle($salesRule->getName());
         $discount->setDescriptor($salesRule->getDescription());
 
-        if ($salesRule->getCouponType() === Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC) {
-            $couponCode = $this->ruleFactory->create()->load($ruleId)->getCouponCode();
-
+        if ((int) $salesRule->getCouponType() === (int) Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC) {
+            $coupon = Mage::getModel('salesrule/coupon')->loadPrimaryByRule($salesRule);
             $discount->setIsVoucher(true);
-            $discount->setVoucherCode($couponCode);
+            if ($coupon) {
+                $discount->setVoucherCode($coupon->getCode());
+            }
         }
 
         if ($salesRule->getSimpleAction() === Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION) {
