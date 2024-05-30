@@ -1,21 +1,17 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Model_Observer_Order
+class Klar_DataSync_Model_Observer_Order
 {
     public function createKlarOrder(Varien_Event_Observer $observer)
     {
         $order = $observer->getEvent()->getOrder();
         try {
-            $klarOrder = Mage::getModel('codeapp_klar/klarorder');
+            $klarOrder = Mage::getModel('klar_datasync/klarorder');
             $klarOrder->setData('order_id', $order->getId());
-            $klarOrder->setData('status', CodeApp_Klar_Model_Klarorder::STATUS_PENDING);
+            $klarOrder->setData('status', Klar_DataSync_Model_Klarorder::STATUS_PENDING);
             $klarOrder->save();
         } catch (Exception $e) {
-            Mage::helper('codeapp_klar')->log('Error saving klar order for export: ' . $e->getMessage(), Zend_Log::ERR);
+            Mage::helper('klar_datasync')->log('Error saving klar order for export: ' . $e->getMessage(), Zend_Log::ERR);
         }
     }
 }

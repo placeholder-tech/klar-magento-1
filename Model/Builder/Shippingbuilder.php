@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Model_Builder_Shippingbuilder extends CodeApp_Klar_Model_Abstractapirequestparamsbuilder
+class Klar_DataSync_Model_Builder_Shippingbuilder extends Klar_DataSync_Model_Abstractapirequestparamsbuilder
 {
     /**
      * Build shipping from sales order.
@@ -16,8 +12,8 @@ class CodeApp_Klar_Model_Builder_Shippingbuilder extends CodeApp_Klar_Model_Abst
     public function buildFromSalesOrder(Mage_Sales_Model_Order $salesOrder)
     {
         $shippingAddress = $salesOrder->getShippingAddress();
-        /* @var CodeApp_Klar_Model_Data_Shipping $shipping */
-        $shipping = Mage::getModel('codeapp_klar/data_shipping');
+        /* @var Klar_DataSync_Model_Data_Shipping $shipping */
+        $shipping = Mage::getModel('klar_datasync/data_shipping');
 
         if ($shippingAddress) {
           $shipping->setCity($shippingAddress->getCity());
@@ -66,10 +62,10 @@ class CodeApp_Klar_Model_Builder_Shippingbuilder extends CodeApp_Klar_Model_Abst
         $discountAmount = (float)$salesOrder->getShippingDiscountAmount();
 
         if ($discountAmount) {
-            /* @var CodeApp_Klar_Model_Data_Discount $discount */
-            $discount = Mage::getModel('codeapp_klar/data_discount');
+            /* @var Klar_DataSync_Model_Data_Discount $discount */
+            $discount = Mage::getModel('klar_datasync/data_discount');
 
-            $discount->setTitle(CodeApp_Klar_Model_Data_Discount::DEFAULT_DISCOUNT_TITLE);
+            $discount->setTitle(Klar_DataSync_Model_Data_Discount::DEFAULT_DISCOUNT_TITLE);
             $discount->setDiscountAmount($discountAmount);
 
             return [$this->snakeToCamel($discount->toArray())];
@@ -87,8 +83,8 @@ class CodeApp_Klar_Model_Builder_Shippingbuilder extends CodeApp_Klar_Model_Abst
      */
     private function getTaxes(Mage_Sales_Model_Order $order)
     {
-        /** @var CodeApp_Klar_Model_Builder_Taxesbuilder $taxesBuilder */
-        $taxesBuilder = Mage::getSingleton('codeapp_klar/builder_taxesbuilder');
+        /** @var Klar_DataSync_Model_Builder_Taxesbuilder $taxesBuilder */
+        $taxesBuilder = Mage::getSingleton('klar_datasync/builder_taxesbuilder');
 
         return $taxesBuilder->buildForShipping($order);
     }

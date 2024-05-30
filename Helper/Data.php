@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Helper_Data extends Mage_Core_Helper_Data
+class Klar_DataSync_Helper_Data extends Mage_Core_Helper_Data
 {
     /**
      * @param string $message

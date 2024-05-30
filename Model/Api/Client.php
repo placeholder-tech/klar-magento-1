@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Model_Api_Client
+class Klar_DataSync_Model_Api_Client
 {
     private $headers = [];
     private $cookies = [];

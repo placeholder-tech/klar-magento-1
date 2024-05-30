@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Model_Service_Klar
+class Klar_DataSync_Model_Service_Klar
 {
     public function scheduleExportByDates($from = null, $to = null)
     {
@@ -26,13 +22,13 @@ class CodeApp_Klar_Model_Service_Klar
     private function createKlarOrderFromSalesOrder(Mage_Sales_Model_Order $order)
     {
         try {
-            $klarOrder = Mage::getModel('codeapp_klar/klarorder');
+            $klarOrder = Mage::getModel('klar_datasync/klarorder');
             $klarOrder->setData('order_id', $order->getId());
-            $klarOrder->setData('status', CodeApp_Klar_Model_Klarorder::STATUS_PENDING);
+            $klarOrder->setData('status', Klar_DataSync_Model_Klarorder::STATUS_PENDING);
             $klarOrder->save();
         } catch (Exception $e) {
-            $message = Mage::helper('codeapp_klar')->__('Error saving klar order for export: %s', $e->getMessage());
-            Mage::helper('codeapp_klar')->log($message, Zend_Log::ERR);
+            $message = Mage::helper('klar_datasync')->__('Error saving klar order for export: %s', $e->getMessage());
+            Mage::helper('klar_datasync')->log($message, Zend_Log::ERR);
             Mage::throwException($message);
         }
     }

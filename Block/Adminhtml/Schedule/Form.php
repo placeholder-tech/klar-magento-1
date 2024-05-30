@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Block_Adminhtml_Schedule_Form extends Mage_Adminhtml_Block_Widget_Form
+class Klar_DataSync_Block_Adminhtml_Schedule_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     protected function _prepareForm()
     {
@@ -15,7 +11,7 @@ class CodeApp_Klar_Block_Adminhtml_Schedule_Form extends Mage_Adminhtml_Block_Wi
         ));
         
         $fieldset = $form->addFieldset('base_fieldset', array(
-            'legend' => Mage::helper('codeapp_klar')->__('Select Date Range')
+            'legend' => Mage::helper('klar_datasync')->__('Select Date Range')
         ));
 
         $fieldset->addField('form_key', 'hidden', array(
@@ -27,8 +23,8 @@ class CodeApp_Klar_Block_Adminhtml_Schedule_Form extends Mage_Adminhtml_Block_Wi
 
         $fieldset->addField('from', 'date', array(
             'name'   => 'from',
-            'label'  => Mage::helper('codeapp_klar')->__('Date From'),
-            'title'  => Mage::helper('codeapp_klar')->__('Date From'),
+            'label'  => Mage::helper('klar_datasync')->__('Date From'),
+            'title'  => Mage::helper('klar_datasync')->__('Date From'),
             'image'  => $this->getSkinUrl('images/grid-cal.gif'),
             'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
             'format'       => 'yyyy-MM-dd',
@@ -37,8 +33,8 @@ class CodeApp_Klar_Block_Adminhtml_Schedule_Form extends Mage_Adminhtml_Block_Wi
 
         $fieldset->addField('to', 'date', array(
             'name'   => 'to',
-            'label'  => Mage::helper('codeapp_klar')->__('Date To'),
-            'title'  => Mage::helper('codeapp_klar')->__('Date To'),
+            'label'  => Mage::helper('klar_datasync')->__('Date To'),
+            'title'  => Mage::helper('klar_datasync')->__('Date To'),
             'image'  => $this->getSkinUrl('images/grid-cal.gif'),
             'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
             'format'       => 'yyyy-MM-dd',
@@ -47,9 +43,9 @@ class CodeApp_Klar_Block_Adminhtml_Schedule_Form extends Mage_Adminhtml_Block_Wi
 
         $fieldset->addField('submit', 'submit', array(
             'name'      => 'submit',
-            'value'     => Mage::helper('codeapp_klar')->__('Export'),
+            'value'     => Mage::helper('klar_datasync')->__('Export'),
             'class'     => 'form-button',
-            'title'     => Mage::helper('codeapp_klar')->__('Export'),
+            'title'     => Mage::helper('klar_datasync')->__('Export'),
             'onclick'   => "this.form.submit();"
         ));
 

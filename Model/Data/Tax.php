@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Model_Data_Tax extends Varien_Object
+class Klar_DataSync_Model_Data_Tax extends Varien_Object
 {   
     /**
      * String constants for property names

@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Model_Abstractapirequestparamsbuilder
+class Klar_DataSync_Model_Builder_Lineitemdiscountbuilder extends Klar_DataSync_Model_Abstractapirequestparamsbuilder
 {
     /**
      * Build line item discounts array from sales order item.
@@ -16,7 +12,7 @@ class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Mo
     public function buildFromSalesOrderItem(Mage_Sales_Model_Order_Item $salesOrderItem)
     {
         $discounts = [];
-        $discountAmount = Mage::getSingleton('codeapp_klar/service_discount')
+        $discountAmount = Mage::getSingleton('klar_datasync/service_discount')
                             ->getDiscountAmountFromOrderItem($salesOrderItem);
         $discountLeft = $discountAmount;
 
@@ -79,8 +75,8 @@ class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Mo
             return [];
         }
 
-        /* @var CodeApp_Klar_Model_Data_Discount $discount */
-        $discount = Mage::getModel('codeapp_klar/data_discount');
+        /* @var Klar_DataSync_Model_Data_Discount $discount */
+        $discount = Mage::getModel('klar_datasync/data_discount');
 
         $discount->setTitle($salesRule->getName());
         $discount->setDescriptor($salesRule->getDescription());
@@ -114,11 +110,11 @@ class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Mo
      */
     private function buildOtherDiscount($discountLeft)
     {
-        /* @var CodeApp_Klar_Model_Data_Discount $discount */
-        $discount = Mage::getModel('codeapp_klar/data_discount');
+        /* @var Klar_DataSync_Model_Data_Discount $discount */
+        $discount = Mage::getModel('klar_datasync/data_discount');
 
-        $discount->setTitle(CodeApp_Klar_Model_Data_Discount::OTHER_DISCOUNT_TITLE);
-        $discount->setDescriptor(CodeApp_Klar_Model_Data_Discount::OTHER_DISCOUNT_DESCRIPTOR);
+        $discount->setTitle(Klar_DataSync_Model_Data_Discount::OTHER_DISCOUNT_TITLE);
+        $discount->setDescriptor(Klar_DataSync_Model_Data_Discount::OTHER_DISCOUNT_DESCRIPTOR);
         $discount->setDiscountAmount($discountLeft);
 
         return $this->snakeToCamel($discount->toArray());
@@ -134,11 +130,11 @@ class CodeApp_Klar_Model_Builder_Lineitemdiscountbuilder extends CodeApp_Klar_Mo
      */
     private function buildSpecialPriceDiscount($price, $originalPrice)
     {
-        /* @var CodeApp_Klar_Model_Data_Discount $discount */
-        $discount = Mage::getModel('codeapp_klar/data_discount');
+        /* @var Klar_DataSync_Model_Data_Discount $discount */
+        $discount = Mage::getModel('klar_datasync/data_discount');
 
-        $discount->setTitle(CodeApp_Klar_Model_Data_Discount::SPECIAL_PRICE_DISCOUNT_TITLE);
-        $discount->setDescriptor(CodeApp_Klar_Model_Data_Discount::SPECIAL_PRICE_DISCOUNT_DESCRIPTOR);
+        $discount->setTitle(Klar_DataSync_Model_Data_Discount::SPECIAL_PRICE_DISCOUNT_TITLE);
+        $discount->setDescriptor(Klar_DataSync_Model_Data_Discount::SPECIAL_PRICE_DISCOUNT_DESCRIPTOR);
         $discount->setDiscountAmount($originalPrice - $price);
 
         return $this->snakeToCamel($discount->toArray());

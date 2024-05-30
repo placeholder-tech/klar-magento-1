@@ -1,15 +1,11 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
  /** @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 $installer->startSetup();
 
 $table = $installer->getConnection()
-        ->newTable($installer->getTable('codeapp_klar/klarorder'))
+        ->newTable($installer->getTable('klar_datasync/klarorder'))
         ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
             'primary'   => true,
             'identity'  => true,
@@ -36,7 +32,7 @@ $table = $installer->getConnection()
             'nullable' => false,
             'default'  => Varien_Db_Ddl_Table::TIMESTAMP_INIT_UPDATE
         ), 'Update Time')
-        ->addForeignKey($installer->getFkName('codeapp_klar/klarorder', 'order_id', 'sales/order', 'entity_id'),
+        ->addForeignKey($installer->getFkName('klar_datasync/klarorder', 'order_id', 'sales/order', 'entity_id'),
             'order_id', $installer->getTable('sales/order'), 'entity_id',
             Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
         ->setComment('Klar Orders Table');

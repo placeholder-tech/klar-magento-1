@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Block_Adminhtml_Klarorder_Grid extends Mage_Adminhtml_Block_Widget_Grid
+class Klar_DataSync_Block_Adminhtml_Klarorder_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     public function __construct()
     {
@@ -17,7 +13,7 @@ class CodeApp_Klar_Block_Adminhtml_Klarorder_Grid extends Mage_Adminhtml_Block_W
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('codeapp_klar/klarorder')->getCollection();
+        $collection = Mage::getModel('klar_datasync/klarorder')->getCollection();
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -25,21 +21,21 @@ class CodeApp_Klar_Block_Adminhtml_Klarorder_Grid extends Mage_Adminhtml_Block_W
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', array(
-            'header'    => Mage::helper('codeapp_klar')->__('ID'),
+            'header'    => Mage::helper('klar_datasync')->__('ID'),
             'align'     =>'right',
             'width'     => '50px',
             'index'     => 'entity_id',
         ));
 
         $this->addColumn('order_id', array(
-            'header'    => Mage::helper('codeapp_klar')->__('Order ID'),
+            'header'    => Mage::helper('klar_datasync')->__('Order ID'),
             'align'     =>'left',
             'width'     => '80px',
             'index'     => 'order_id',
         ));
 
         $this->addColumn('status', array(
-            'header'    => Mage::helper('codeapp_klar')->__('Status'),
+            'header'    => Mage::helper('klar_datasync')->__('Status'),
             'align'     => 'left',
             'index'     => 'status',
             'width'     => '100px',
@@ -53,13 +49,13 @@ class CodeApp_Klar_Block_Adminhtml_Klarorder_Grid extends Mage_Adminhtml_Block_W
         ));
 
         $this->addColumn('message', array(
-            'header'    => Mage::helper('codeapp_klar')->__('Message'),
+            'header'    => Mage::helper('klar_datasync')->__('Message'),
             'align'     => 'left',
             'index'     => 'message',
         ));
 
         $this->addColumn('created_at', array(
-            'header' => Mage::helper('codeapp_klar')->__('Created At'),
+            'header' => Mage::helper('klar_datasync')->__('Created At'),
             'index'  => 'created_at',
             'type'   => 'datetime',
             'width'  => '150px',
@@ -68,7 +64,7 @@ class CodeApp_Klar_Block_Adminhtml_Klarorder_Grid extends Mage_Adminhtml_Block_W
         ));
     
         $this->addColumn('updated_at', array(
-            'header' => Mage::helper('codeapp_klar')->__('Updated At'),
+            'header' => Mage::helper('klar_datasync')->__('Updated At'),
             'index'  => 'updated_at',
             'type'   => 'datetime',
             'width'  => '150px',

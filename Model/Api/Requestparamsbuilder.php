@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Model_Api_Requestparamsbuilder extends CodeApp_Klar_Model_Abstractapirequestparamsbuilder
+class Klar_DataSync_Model_Api_Requestparamsbuilder extends Klar_DataSync_Model_Abstractapirequestparamsbuilder
 {
     const EMPTY_VALUE = '-';
     const FINANCIAL_STATUS_PENDING = 'pending';
@@ -27,8 +23,8 @@ class CodeApp_Klar_Model_Api_Requestparamsbuilder extends CodeApp_Klar_Model_Abs
      */
     public function buildFromSalesOrder(Mage_Sales_Model_Order $salesOrder)
     {
-        /* @var CodeApp_Klar_Model_Data_Order $order */
-        $order = Mage::getModel('codeapp_klar/data_order');
+        /* @var Klar_DataSync_Model_Data_Order $order */
+        $order = Mage::getModel('klar_datasync/data_order');
         $processedAt = $this->getProcessedAt($salesOrder);
 
         $order->setId($salesOrder->getId());
@@ -58,23 +54,23 @@ class CodeApp_Klar_Model_Api_Requestparamsbuilder extends CodeApp_Klar_Model_Abs
         $order->setOrderNumber($salesOrder->getIncrementId());
         
         $order->setLineItems(
-            Mage::getSingleton('codeapp_klar/builder_lineitemsbuilder')->buildFromSalesOrder($salesOrder)
+            Mage::getSingleton('klar_datasync/builder_lineitemsbuilder')->buildFromSalesOrder($salesOrder)
         );
         
         $order->setRefundedLineItems(
-            Mage::getSingleton('codeapp_klar/builder_refundedlineitemsbuilder')->buildFromSalesOrder($salesOrder)
+            Mage::getSingleton('klar_datasync/builder_refundedlineitemsbuilder')->buildFromSalesOrder($salesOrder)
         );
         
         $order->setShipping(
-            Mage::getSingleton('codeapp_klar/builder_shippingbuilder')->buildFromSalesOrder($salesOrder)
+            Mage::getSingleton('klar_datasync/builder_shippingbuilder')->buildFromSalesOrder($salesOrder)
         );
         
         $order->setCustomer(
-            Mage::getSingleton('codeapp_klar/builder_customerbuilder')->buildFromSalesOrder($salesOrder)
+            Mage::getSingleton('klar_datasync/builder_customerbuilder')->buildFromSalesOrder($salesOrder)
         );
         
         $order->setOptionalIdentifiers(
-            Mage::getSingleton('codeapp_klar/builder_optionalidentifiersbuilder')->buildFromSalesOrder($salesOrder)
+            Mage::getSingleton('klar_datasync/builder_optionalidentifiersbuilder')->buildFromSalesOrder($salesOrder)
         );
 
         return $this->snakeToCamel($order->toArray());
@@ -235,10 +231,10 @@ class CodeApp_Klar_Model_Api_Requestparamsbuilder extends CodeApp_Klar_Model_Abs
     /**
      * Get optional identifiers.
      *
-     * @return CodeApp_Klar_Model_Data_Optionalidentifiers
+     * @return Klar_DataSync_Model_Data_Optionalidentifiers
      */
     private function getOptionalIdentifiers()
     {
-        return Mage::getModel('codeapp_klar/data_optionalidentifiers');
+        return Mage::getModel('klar_datasync/data_optionalidentifiers');
     }
 }

@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abstractapirequestparamsbuilder
+class Klar_DataSync_Model_Builder_LineitemsBuilder extends Klar_DataSync_Model_Abstractapirequestparamsbuilder
 {
     /**
      * Build line items array from sales order.
@@ -33,8 +29,8 @@ class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abs
                 $weightInGrams = $this->getWeightInGrams($product);
             }
 
-            /* @var CodeApp_Klar_Model_Data_Lineitem $lineItem */
-            $lineItem = Mage::getModel('codeapp_klar/data_lineitem');
+            /* @var Klar_DataSync_Model_Data_Lineitem $lineItem */
+            $lineItem = Mage::getModel('klar_datasync/data_lineitem');
 
             $lineItem->setId((string)$salesOrderItem->getItemId());
             $lineItem->setProductName($salesOrderItem->getName());
@@ -59,11 +55,11 @@ class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abs
             $lineItem->setSku($salesOrderItem->getSku());
             $lineItem->setQuantity((float)$salesOrderItem->getQtyOrdered());
             $lineItem->setDiscounts(
-                Mage::getSingleton('codeapp_klar/builder_lineitemdiscountbuilder')->buildFromSalesOrderItem($salesOrderItem)
+                Mage::getSingleton('klar_datasync/builder_lineitemdiscountbuilder')->buildFromSalesOrderItem($salesOrderItem)
             );
 
             $lineItem->setTaxes(
-                Mage::getSingleton('codeapp_klar/builder_taxesbuilder')->buildForOrderItem($salesOrderItem)
+                Mage::getSingleton('klar_datasync/builder_taxesbuilder')->buildForOrderItem($salesOrderItem)
             );
 
             $lineItem->setTotalAmountBeforeTaxesAndDiscounts($totalBeforeTaxesAndDiscounts);
@@ -159,11 +155,11 @@ class CodeApp_Klar_Model_Builder_LineitemsBuilder extends CodeApp_Klar_Model_Abs
     /**
      * Calculate line item total after taxes and discounts.
      *
-     * @param CodeApp_Klar_Model_Data_Lineitem $lineItem
+     * @param Klar_DataSync_Model_Data_Lineitem $lineItem
      *
      * @return float
      */
-    private function calculateTotalAfterTaxesAndDiscounts(CodeApp_Klar_Model_Data_Lineitem $lineItem)
+    private function calculateTotalAfterTaxesAndDiscounts(Klar_DataSync_Model_Data_Lineitem $lineItem)
     {
         $taxAmount = 0;
         $discountAmount = 0;

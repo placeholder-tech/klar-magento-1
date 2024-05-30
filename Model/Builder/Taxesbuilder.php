@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Model_Builder_Taxesbuilder extends CodeApp_Klar_Model_Abstractapirequestparamsbuilder
+class Klar_DataSync_Model_Builder_Taxesbuilder extends Klar_DataSync_Model_Abstractapirequestparamsbuilder
 {
     const TAXABLE_ITEM_TYPE_PRODUCT = 'product';
     const TAXABLE_ITEM_TYPE_SHIPPING = 'shipping';
@@ -27,11 +23,11 @@ class CodeApp_Klar_Model_Builder_Taxesbuilder extends CodeApp_Klar_Model_Abstrac
             
             $qty = $salesOrderItem->getQtyOrdered() ? $salesOrderItem->getQtyOrdered() : 1;
             $itemPrice = (float)$salesOrderItem->getPriceInclTax()
-                            - (Mage::getSingleton('codeapp_klar/service_discount')->getDiscountAmountFromOrderItem($salesOrderItem) / $qty);
+                            - (Mage::getSingleton('klar_datasync/service_discount')->getDiscountAmountFromOrderItem($salesOrderItem) / $qty);
             $taxAmount = $itemPrice - ($itemPrice / (1+ $taxRate));
 
-            /* @var CodeApp_Klar_Model_Data_Tax $tax */
-            $tax = Mage::getModel('codeapp_klar/data_tax');
+            /* @var Klar_DataSync_Model_Data_Tax $tax */
+            $tax = Mage::getModel('klar_datasync/data_tax');
 
             $tax->setTitle($taxItem['title']);
             $tax->setTaxRate($taxRate);
@@ -61,8 +57,8 @@ class CodeApp_Klar_Model_Builder_Taxesbuilder extends CodeApp_Klar_Model_Abstrac
         foreach ($taxItems as $taxItem) {
             
         }
-        /* @var CodeApp_Klar_Model_Data_Tax $tax */
-        $tax = Mage::getModel('codeapp_klar/data_tax');
+        /* @var Klar_DataSync_Model_Data_Tax $tax */
+        $tax = Mage::getModel('klar_datasync/data_tax');
 
         if (count($taxItems)) {
             $tax->setTitle($taxItem->getTitle());

@@ -1,30 +1,24 @@
 <?xml version="1.0"?>
-<!--
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
--->
 <config>
     <menu>
         <sales>
             <children>
-                <codeapp_klar translate="title" module="codeapp_klar">
+                <klar_datasync translate="title" module="klar_datasync">
                     <title>Klar</title>
                     <sort_order>1000</sort_order>
                     <children>
-                        <order translate="title" module="codeapp_klar">
+                        <order translate="title" module="klar_datasync">
                             <title>Orders Status</title>
                             <sort_order>10</sort_order>
                             <action>adminhtml/klar_order/index</action>
                         </order>
-                        <schedule translate="title" module="codeapp_klar">
+                        <schedule translate="title" module="klar_datasync">
                             <title>Schedule Export</title>
                             <sort_order>20</sort_order>
                             <action>adminhtml/klar_schedule/index</action>
                         </schedule>
                     </children>
-                </codeapp_klar>
+                </klar_datasync>
             </children>
         </sales>
     </menu>
@@ -34,20 +28,20 @@
                 <children>
                     <sales>
                         <children>
-                            <codeapp_klar translate="title" module="codeapp_klar">
+                            <klar_datasync translate="title" module="klar_datasync">
                                 <title>Klar</title>
                                 <sort_order>500</sort_order>
                                 <children>
-                                    <order translate="title" module="codeapp_klar">
+                                    <order translate="title" module="klar_datasync">
                                         <title>Orders Status</title>
                                         <sort_order>10</sort_order>
                                     </order>
-                                    <schedule translate="title" module="codeapp_klar">
+                                    <schedule translate="title" module="klar_datasync">
                                         <title>Schedule Export</title>
                                         <sort_order>20</sort_order>
                                     </schedule>
                                 </children>
-                            </codeapp_klar>
+                            </klar_datasync>
                         </children>
                     </sales>
                     <system>

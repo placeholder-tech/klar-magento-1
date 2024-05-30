@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Model_Builder_Optionalidentifiersbuilder extends CodeApp_Klar_Model_Abstractapirequestparamsbuilder
+class Klar_DataSync_Model_Builder_Optionalidentifiersbuilder extends Klar_DataSync_Model_Abstractapirequestparamsbuilder
 {
     /**
      * Build OptionalIdentifiers from sales order.
@@ -15,8 +11,8 @@ class CodeApp_Klar_Model_Builder_Optionalidentifiersbuilder extends CodeApp_Klar
      */
     public function buildFromSalesOrder(Mage_Sales_Model_Order $salesOrder)
     {
-        /** @var CodeApp_Klar_Model_Data_Optionalidentifiers $optionalIdentifiers */
-        $optionalIdentifiers = Mage::getModel('codeapp_klar/data_optionalidentifiers');
+        /** @var Klar_DataSync_Model_Data_Optionalidentifiers $optionalIdentifiers */
+        $optionalIdentifiers = Mage::getModel('klar_datasync/data_optionalidentifiers');
         $optionalIdentifiers->setGoogleAnalyticsTransactionId($salesOrder->getIncrementId());
 
         return $this->snakeToCamel($optionalIdentifiers->toArray());

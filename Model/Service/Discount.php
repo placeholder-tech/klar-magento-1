@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Model_Service_Discount
+class Klar_DataSync_Model_Service_Discount
 {   
     private $customDiscountColumns = [];
 

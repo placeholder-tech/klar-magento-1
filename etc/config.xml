@@ -1,70 +1,64 @@
 <?xml version="1.0"?>
-<!--
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
--->
 <config>
     <modules>
-        <CodeApp_Klar>
+        <Klar_DataSync>
             <version>1.0.0</version>
-        </CodeApp_Klar>
+        </Klar_DataSync>
     </modules>
     <global>
         <helpers>
-            <codeapp_klar>
-                <class>CodeApp_Klar_Helper</class>
-            </codeapp_klar>
+            <klar_datasync>
+                <class>Klar_DataSync_Helper</class>
+            </klar_datasync>
         </helpers>
 		<blocks>
-			<codeapp_klar>
-				<class>CodeApp_Klar_Block</class>
-			</codeapp_klar>
+			<klar_datasync>
+				<class>Klar_DataSync_Block</class>
+			</klar_datasync>
 		</blocks>
         <models>
-            <codeapp_klar>
-                <class>CodeApp_Klar_Model</class>
-				<resourceModel>codeapp_klar_resource</resourceModel>
-            </codeapp_klar>
-			<codeapp_klar_resource>
-				<class>CodeApp_Klar_Model_Resource</class>
+            <klar_datasync>
+                <class>Klar_DataSync_Model</class>
+				<resourceModel>klar_datasync_resource</resourceModel>
+            </klar_datasync>
+			<klar_datasync_resource>
+				<class>Klar_DataSync_Model_Resource</class>
 				<entities>
 					<klarorder>
 						<table>klar_orders</table>
 					</klarorder>
 				</entities>
-			</codeapp_klar_resource>
+			</klar_datasync_resource>
         </models>
 		<resources>
-            <codeapp_klar_setup>
+            <klar_datasync_setup>
                 <setup>
-                    <module>CodeApp_Klar</module>
+                    <module>Klar_DataSync</module>
 					<class>Mage_Core_Model_Resource_Setup</class>
                 </setup>
                 <connection>
                     <use>core_setup</use>
                 </connection>
-            </codeapp_klar_setup>
-            <codeapp_klar_write>
+            </klar_datasync_setup>
+            <klar_datasync_write>
                 <connection>
                     <use>core_write</use>
                 </connection>
-            </codeapp_klar_write>
-            <codeapp_klar_read>
+            </klar_datasync_write>
+            <klar_datasync_read>
                 <connection>
                     <use>core_read</use>
                 </connection>
-            </codeapp_klar_read>
+            </klar_datasync_read>
         </resources>
 		<events>
             <sales_order_place_after>
                 <observers>
-                    <codeapp_klar_order_place_after_observer>
+                    <klar_datasync_order_place_after_observer>
                         <type>singleton</type>
-                        <class>codeapp_klar/observer_order</class>
+                        <class>klar_datasync/observer_order</class>
                         <method>createKlarOrder</method>
-                    </codeapp_klar_order_place_after_observer>
+                    </klar_datasync_order_place_after_observer>
                 </observers>
             </sales_order_place_after>
         </events>
@@ -74,7 +68,7 @@
             <adminhtml>
                 <args>
                     <modules>
-                        <codeapp_klar before="Mage_Adminhtml">CodeApp_Klar_Adminhtml</codeapp_klar>
+                        <klar_datasync before="Mage_Adminhtml">Klar_DataSync_Adminhtml</klar_datasync>
                     </modules>
                 </args>
             </adminhtml>
@@ -89,7 +83,7 @@
 							<children>
 								<config>
 									<children>
-										<klar translate="title" module="codeapp_klar">
+										<klar translate="title" module="klar_datasync">
 											<title>Klar</title>
 											<sort_order>1500</sort_order>
 										</klar>
@@ -104,14 +98,14 @@
 	</adminhtml>
 	<crontab>
         <jobs>
-            <codeapp_klar_order_synchronization>
+            <klar_datasync_order_synchronization>
                 <schedule>
                     <cron_expr>* * * * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>codeapp_klar/cron_order::synchronizeOrders</model>
+                    <model>klar_datasync/cron_order::synchronizeOrders</model>
                 </run>
-            </codeapp_klar_order_synchronization>
+            </klar_datasync_order_synchronization>
         </jobs>
     </crontab>
 	<default>

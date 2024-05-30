@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Model_Builder_Customerbuilder extends CodeApp_Klar_Model_Abstractapirequestparamsbuilder
+class Klar_DataSync_Model_Builder_Customerbuilder extends Klar_DataSync_Model_Abstractapirequestparamsbuilder
 {
     /**
      * Build customer from sales order.
@@ -23,8 +19,8 @@ class CodeApp_Klar_Model_Builder_Customerbuilder extends CodeApp_Klar_Model_Abst
             $customerId = $this->generateGuestCustomerId($customerEmail);
         }
 
-        /* @var CodeApp_Klar_Model_Data_Customer $customer */
-        $customer = Mage::getModel('codeapp_klar/data_customer');
+        /* @var Klar_DataSync_Model_Data_Customer $customer */
+        $customer = Mage::getModel('klar_datasync/data_customer');
 
         $customer->setId((string)$customerId);
         $customer->setEmail($customerEmail);
@@ -42,14 +38,14 @@ class CodeApp_Klar_Model_Builder_Customerbuilder extends CodeApp_Klar_Model_Abst
      */
     private function generateGuestCustomerId($customerEmail)
     {
-        return Mage::helper('codeapp_klar')->getMD5Hash($customerEmail);
+        return Mage::helper('klar_datasync')->getMD5Hash($customerEmail);
     }
 
     /**
-     * @return CodeApp_Klar_Helper_Config
+     * @return Klar_DataSync_Helper_Config
      */
     private function getConfig()
     {
-        return Mage::helper('codeapp_klar/config');
+        return Mage::helper('klar_datasync/config');
     }
 }

@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Model_Builder_Refundedlineitemsbuilder extends CodeApp_Klar_Model_Abstractapirequestparamsbuilder
+class Klar_DataSync_Model_Builder_Refundedlineitemsbuilder extends Klar_DataSync_Model_Abstractapirequestparamsbuilder
 {
     /**
      * Build refunded line items array from sales order.
@@ -22,8 +18,8 @@ class CodeApp_Klar_Model_Builder_Refundedlineitemsbuilder extends CodeApp_Klar_M
                 continue;
             }
 
-            /* @var CodeApp_Klar_Model_Data_Refundedlineitem $refundedLineItem */
-            $refundedLineItem = Mage::getModel('codeapp_klar/data_refundedlineitem');
+            /* @var Klar_DataSync_Model_Data_Refundedlineitem $refundedLineItem */
+            $refundedLineItem = Mage::getModel('klar_datasync/data_refundedlineitem');
 
             $refundedLineItem->setId((string)$salesOrderItem->getId());
             $refundedLineItem->setLineItemId((string)$salesOrderItem->getId());

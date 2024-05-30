@@ -1,10 +1,6 @@
 <?php
-/**
- * @author     Sebastian Ruchlewicz <contact@codeapp.pl>
- * @copyright  Copyright (c) 2024 (https://codeapp.pl)
- */
 
-class CodeApp_Klar_Model_Api
+class Klar_DataSync_Model_Api
 {
     const ORDERS_STATUS_PATH = '/orders/status';
     const ORDERS_VALIDATE_PATH = '/orders/validate';
@@ -56,7 +52,7 @@ class CodeApp_Klar_Model_Api
 
             if (count($orders) !== count($orderIds)) {
                 Mage::throwException(
-                    Mage::helper('codeapp_klar')->__(
+                    Mage::helper('klar_datasync')->__(
                         'Could not find orders with ids: `%ids`',
                         [
                             'ids' => implode(', ', array_diff(array_keys($orders), $orderIds))
@@ -64,7 +60,7 @@ class CodeApp_Klar_Model_Api
                     )
                 );
             }
-            return Mage::helper('codeapp_klar')->toArray($orders);
+            return Mage::helper('klar_datasync')->toArray($orders);
         }
 
         return null;
@@ -133,28 +129,28 @@ class CodeApp_Klar_Model_Api
     }
 
     /**
-     * @return CodeApp_Klar_Model_Api_Requestparamsbuilder
+     * @return Klar_DataSync_Model_Api_Requestparamsbuilder
      */
     private function getParamsBuilder()
     {
-        return Mage::getModel('codeapp_klar/api_requestparamsbuilder');
+        return Mage::getModel('klar_datasync/api_requestparamsbuilder');
     }
 
     /**
-     * @return CodeApp_Klar_Helper_Config
+     * @return Klar_DataSync_Helper_Config
      */
     private function getConfig()
     {
-        return Mage::helper('codeapp_klar/config');
+        return Mage::helper('klar_datasync/config');
     }
 
     /**
-     * @return CodeApp_Klar_Helper_Data
+     * @return Klar_DataSync_Helper_Data
      */
     private function getHelper()
     {
         if (!$this->helper) {
-            $this->helper = Mage::helper('codeapp_klar');
+            $this->helper = Mage::helper('klar_datasync');
         }
         
         return $this->helper;
@@ -163,12 +159,12 @@ class CodeApp_Klar_Model_Api
     /**
      * Get CURL client.
      *
-     * @return CodeApp_Klar_Model_Api_Client
+     * @return Klar_DataSync_Model_Api_Client
      */
     private function getCurlClient()
     {
         if (!$this->curlClient) {
-            $this->curlClient = Mage::getModel('codeapp_klar/api_client');
+            $this->curlClient = Mage::getModel('klar_datasync/api_client');
             $this->curlClient->setHeaders($this->getHeaders());
         }
 
