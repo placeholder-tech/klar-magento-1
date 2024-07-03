@@ -18,7 +18,7 @@ creating an issue on GitHub.
 
 To install the module, follow these steps:
 
-1. Download the latest release here and unzip the file
+1. Download the latest release [here](https://github.com/placeholder-tech/klar-magento-1/releases) and unzip the file
 
 2. Move the content of the folder Klar_DataSync to the following folder: magento_root/app/code/local
 
