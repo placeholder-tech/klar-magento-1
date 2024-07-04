@@ -20,19 +20,21 @@ To install the module, follow these steps:
 
 1. Download the latest release [here](https://github.com/placeholder-tech/klar-magento-1/releases) and unzip the file
 
-2. Move the content of the folder Klar_DataSync to the following folder: magento_root/app/code/local
+2. Unzip the file Klar_DataSync.zip and move the folder "Klar" to the following folder: <magento_root>/app/code/local
 
-3. After a reload (log-in and out again) the module should be available in Magento
+3. Move the file "Klar_DataSync.xml" to the following folder: <magento_root>/app/etc/modules/ 
 
-4. You can configure the module by going to admin -> system -> configration -> Klar -> DataSync.
+4. After a reload (log-in and out again) the module should be available in Magento
+
+5. You can configure the module by going to admin -> system -> configuration -> Klar -> Integration. 
 
 ![Configuration](docs/klar_data_sync_admin.png)
 
-5. As for the workflow, the orders are exported in 2 ways, automatically after placing order and manually via admin -> sales -> klar -> Schedule Export (you can select the date range). Both methods are handled by cron, so be sure to tell the client that the cron has to be configured and enabled. The status of orders can be checked in admin -> sales -> klar -> Orders Status. Here you can check the status, and if some error occured, the error message.
+5. As for the workflow, the orders are exported in 2 ways, automatically after placing order and manually via Admin -> Sales -> Klar -> Schedule Export (you can select the date range). Both methods are handled by cron, so be sure to tell the client that the cron has to be configured and enabled. 
 
 _![Date Range](docs/klar_data_sync_date_range.png)_
 
-The status of the exported orders can be found here: 
+The status of orders can be checked in Admin -> Sales -> Klar -> Orders Status. Here you can check the status, and if some error occurred, the error message.
 
 _![Orders List](docs/klar_data_sync_orders_list.png)_
 
