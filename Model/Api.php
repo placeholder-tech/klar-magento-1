@@ -2,14 +2,10 @@
 
 class Klar_DataSync_Model_Api
 {
-    const ORDERS_STATUS_PATH = '/orders/status';
-    const ORDERS_VALIDATE_PATH = '/orders/validate';
     const ORDERS_JSON_PATH = '/orders/json';
     const ORDER_STATUS_VALID = 'VALID';
     const ORDER_STATUS_INVALID = 'INVALID';
-    const STATUS_OK = 201;
-    const STATUS_BAD_REQUEST = 400;
-    const BATCH_SIZE = 5;
+    const VERSION = '0.0.1';
 
     private $requestData;
 
@@ -20,7 +16,7 @@ class Klar_DataSync_Model_Api
     /**
      * @param int[] $ids
      */
-    public function validateAndSend(array $ids)
+    public function send(array $ids)
     {
         $result = 0;
         $salesOrders = $this->getOrders($ids);
@@ -31,13 +27,7 @@ class Klar_DataSync_Model_Api
             return $result;
         }
 
-        if ($this->validate($salesOrders)) {
-            $result = $this->json($salesOrders);
-        } elseif (count($ids) > 1) {
-            foreach ($ids as $id) {
-                $result += $this->validateAndSend([$id]);
-            }
-        }
+        return $this->json($salesOrders);
     }
 
     /**
@@ -64,45 +54,6 @@ class Klar_DataSync_Model_Api
         }
 
         return null;
-    }
-
-    /**
-     * Make order validate request.
-     *
-     * @param Mage_Sales_Model_Order[] $salesOrders
-     *
-     * @return bool
-     */
-    private function validate(array $salesOrders)
-    {
-        $orderIds = implode(', ', array_keys($salesOrders));
-        $this->getHelper()->log($this->getHelper()->__('Validating orders "#%s".', $orderIds));
-
-        if (count($salesOrders) > self::BATCH_SIZE) {
-            $this->getHelper()->log(
-                $this->getHelper()->__('Batch size must be less or equal %d, %d provided.', self::BATCH_SIZE, count($salesOrders))
-            );
-            return false;
-        }
-
-        $this->getCurlClient()->post(
-            $this->getRequestUrl(self::ORDERS_VALIDATE_PATH, true),
-            $this->requestData
-        );
-
-        if ($this->getCurlClient()->getStatus() === self::STATUS_OK) {
-            return $this->handleSuccess($orderIds);
-        }
-
-        if ($this->getCurlClient()->getStatus() === self::STATUS_BAD_REQUEST) {
-            return $this->handleError($orderIds);
-        }
-
-        $this->getHelper()->log(
-            $this->getHelper()->__('Failed to validate orders "#%s".', $orderIds)
-        );
-
-        return false;
     }
 
     /**
@@ -182,6 +133,7 @@ class Klar_DataSync_Model_Api
             'Expect' => '',
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer ' . $this->getConfig()->getApiToken(),
+            'User-Agent' => 'getklar/' . self::VERSION .' (magento1)'
         ];
     }
 
@@ -202,7 +154,7 @@ class Klar_DataSync_Model_Api
             return rtrim($baseUrl, "/") . '/' . $version . $path;
         }
 
-        return $this->getConfig()->getApiUrl() . $path;
+        return $this->getConfig()->getApiUrl() . $path . '?newErrors=true';
     }
 
     /**
@@ -297,14 +249,19 @@ class Klar_DataSync_Model_Api
             $this->requestData
         );
 
-        if ($this->getCurlClient()->getStatus() === self::STATUS_OK) {
+        $body = $this->getCurlBody();
+        if (isset($body['status']) && $body['status'] === self::ORDER_STATUS_VALID) {
             $this->getHelper()->log(
                 $this->getHelper()->__('Orders "#%s" successfully sent to Klar.', $orderIds)
             );
             $result = count($salesOrders);
+        } elseif (isset($body['status']) && $body['status'] === self::ORDER_STATUS_INVALID) {
+            $this->getHelper()->log(
+                $this->getHelper()->__('Failed to send orders because some orders where invalid "#%s".', $orderIds)
+            );
         } else {
             $this->getHelper()->log(
-                $this->getHelper()->__('Failed to send orders "#%s".', $orderIds)
+                $this->getHelper()->__('Failed to send orders "#%s" with statuscode "#%s".', $orderIds, $this->getStatus())
             );
         }
 
