@@ -33,7 +33,7 @@ class Klar_DataSync_Model_Data_Order extends Varien_Object
      */
     public function getId()
     {
-        return $this->getData(self::ID);
+        return (string)$this->getData(self::ID);
     }
 
     /**
@@ -45,7 +45,7 @@ class Klar_DataSync_Model_Data_Order extends Varien_Object
      */
     public function setId($value)
     {
-        $this->setData(self::ID, $value);
+        $this->setData(self::ID, (string)$value);
     }
 
     /**
