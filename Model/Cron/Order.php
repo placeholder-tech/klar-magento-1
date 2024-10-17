@@ -2,7 +2,7 @@
 
 class Klar_DataSync_Model_Cron_Order
 {
-    const BATCH_SIZE = 5;
+    const BATCH_SIZE = 10;
 
     private $api;
 
@@ -21,7 +21,7 @@ class Klar_DataSync_Model_Cron_Order
                 $item->setStatus(Klar_DataSync_Model_Klarorder::STATUS_PROCESSING);
                 $item->save();
                 
-                $this->getApi()->validateAndSend([$item->getOrderId()]);
+                $this->getApi()->send([$item->getOrderId()]);
                 
                 $item->setStatus(Klar_DataSync_Model_Klarorder::STATUS_SUCCESS);
                 $item->save();
